@@ -12,7 +12,7 @@ Extension for [`mdast-util-from-markdown`][from-markdown] and/or
 [`mdast-util-to-markdown`][to-markdown] to support GitHub flavored markdown
 autolink literals in **[mdast][]**.
 When parsing (`from-markdown`), must be combined with
-[`micromark-extension-gfm-autolink-literal`][syntax].
+[`micromark-extension-gfm-autolink-literal`][extension].
 
 You probably shouldn’t use this package directly, but instead use `remark-gfm`
 with **[remark][]**.
@@ -32,13 +32,13 @@ Say our script, `example.js`, looks as follows:
 ```js
 var fromMarkdown = require('mdast-util-from-markdown')
 var toMarkdown = require('mdast-util-to-markdown')
-var autolinkLiteralSyntax = require('micromark-extension-gfm-autolink-literal')
+var syntax = require('micromark-extension-gfm-autolink-literal')
 var autolinkLiteral = require('mdast-util-gfm-autolink-literal')
 
 var doc = 'www.example.com, https://example.com, and contact@example.com.'
 
 var tree = fromMarkdown(doc, {
-  extensions: [autolinkLiteralSyntax],
+  extensions: [syntax],
   mdastExtensions: [autolinkLiteral.fromMarkdown]
 })
 
@@ -112,7 +112,7 @@ for [`mdast-util-from-markdown`][from-markdown] and
     — remark plugin to support GFM
 *   [`micromark/micromark`][micromark]
     — the smallest commonmark-compliant markdown parser that exists
-*   [`micromark/micromark-extension-gfm-autolink-literal`][syntax]
+*   [`micromark/micromark-extension-gfm-autolink-literal`][extension]
     — micromark extension to parse GFM autolink literals
 *   [`syntax-tree/mdast-util-from-markdown`][from-markdown]
     — mdast parser using `micromark` to create mdast from markdown
@@ -183,4 +183,4 @@ abide by its terms.
 
 [micromark]: https://github.com/micromark/micromark
 
-[syntax]: https://github.com/micromark/micromark-extension-gfm-autolink-literal
+[extension]: https://github.com/micromark/micromark-extension-gfm-autolink-literal
