@@ -136,79 +136,61 @@ test('mdast -> markdown', function (t) {
       },
       {extensions: [autolinkLiterals.toMarkdown]}
     ),
-    'a <contact@example.com> c.',
+    'a <contact@example.com> c.\n',
     'should not serialize autolink literals'
   )
 
   t.deepEqual(
     toMarkdown(
-      {
-        type: 'paragraph',
-        children: [{type: 'text', value: 'a b@c.d'}]
-      },
+      {type: 'paragraph', children: [{type: 'text', value: 'a b@c.d'}]},
       {extensions: [autolinkLiterals.toMarkdown]}
     ),
-    'a b\\@c.d',
+    'a b\\@c.d\n',
     'should escape at signs if they appear in what looks like an email'
   )
 
   t.deepEqual(
     toMarkdown(
-      {
-        type: 'paragraph',
-        children: [{type: 'text', value: 'a @c'}]
-      },
+      {type: 'paragraph', children: [{type: 'text', value: 'a @c'}]},
       {extensions: [autolinkLiterals.toMarkdown]}
     ),
-    'a @c',
+    'a @c\n',
     'should not escape at signs if they appear in what can’t be an email'
   )
 
   t.deepEqual(
     toMarkdown(
-      {
-        type: 'paragraph',
-        children: [{type: 'text', value: 'a www.b.c'}]
-      },
+      {type: 'paragraph', children: [{type: 'text', value: 'a www.b.c'}]},
       {extensions: [autolinkLiterals.toMarkdown]}
     ),
-    'a www\\.b.c',
+    'a www\\.b.c\n',
     'should escape dots if they appear in what looks like a domain'
   )
 
   t.deepEqual(
     toMarkdown(
-      {
-        type: 'paragraph',
-        children: [{type: 'text', value: 'a.b'}]
-      },
+      {type: 'paragraph', children: [{type: 'text', value: 'a.b'}]},
       {extensions: [autolinkLiterals.toMarkdown]}
     ),
-    'a.b',
+    'a.b\n',
     'should not escape dots if they appear in what can’t be a domain'
   )
 
   t.deepEqual(
     toMarkdown(
-      {
-        type: 'paragraph',
-        children: [{type: 'text', value: 'https:/'}]
-      },
+      {type: 'paragraph', children: [{type: 'text', value: 'https:/'}]},
       {extensions: [autolinkLiterals.toMarkdown]}
     ),
-    'https\\:/',
+    'https\\:/\n',
     'should escape colons if they appear in what looks like a http protocol'
   )
 
   t.deepEqual(
     toMarkdown(
-      {
-        type: 'paragraph',
-        children: [{type: 'text', value: 'https:a'}]
-      },
+      {type: 'paragraph', children: [{type: 'text', value: 'https:a'}]},
       {extensions: [autolinkLiterals.toMarkdown]}
     ),
-    'https:a',
+    'https:a\n',
     'should not escape colons if they appear in what can’t be a http protocol'
   )
 
