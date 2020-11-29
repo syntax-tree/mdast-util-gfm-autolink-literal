@@ -135,9 +135,9 @@ abide by its terms.
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/syntax-tree/mdast-util-gfm-autolink-literal.svg
+[build-badge]: https://github.com/syntax-tree/mdast-util-gfm-autolink-literal/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/syntax-tree/mdast-util-gfm-autolink-literal
+[build]: https://github.com/syntax-tree/mdast-util-gfm-autolink-literal/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/syntax-tree/mdast-util-gfm-autolink-literal.svg
 
