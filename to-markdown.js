@@ -1,5 +1,5 @@
 var inConstruct = 'phrasing'
-var notInConstruct = ['autolink', 'link', 'image']
+var notInConstruct = ['autolink', 'link', 'image', 'label']
 
 exports.unsafe = [
   {
