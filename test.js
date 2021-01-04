@@ -115,10 +115,245 @@ test('markdown -> mdast', function (t) {
     'should support autolink literals'
   )
 
+  t.deepEqual(
+    fromMarkdown(
+      `[http://localhost]: http://localhost "Open example on localhost"
+[https://dev.local]: https://dev.local "Open example on localhost"
+
+Existing link [http://localhost][], [https://dev.local][] in paragraph.`,
+      {
+        extensions: [syntax],
+        mdastExtensions: [autolinkLiterals.fromMarkdown]
+      }
+    ),
+    {
+      type: 'root',
+      children: [
+        {
+          type: 'definition',
+          identifier: 'http://localhost',
+          label: 'http://localhost',
+          title: 'Open example on localhost',
+          url: 'http://localhost',
+          position: {
+            start: {line: 1, column: 1, offset: 0},
+            end: {line: 1, column: 65, offset: 64}
+          }
+        },
+        {
+          type: 'definition',
+          identifier: 'https://dev.local',
+          label: 'https://dev.local',
+          title: 'Open example on localhost',
+          url: 'https://dev.local',
+          position: {
+            start: {line: 2, column: 1, offset: 65},
+            end: {line: 2, column: 67, offset: 131}
+          }
+        },
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'text',
+              value: 'Existing link ',
+              position: {
+                start: {line: 4, column: 1, offset: 133},
+                end: {line: 4, column: 15, offset: 147}
+              }
+            },
+            {
+              type: 'linkReference',
+              children: [
+                {
+                  type: 'text',
+                  value: 'http://localhost',
+                  position: {
+                    start: {line: 4, column: 16, offset: 148},
+                    end: {line: 4, column: 32, offset: 164}
+                  }
+                }
+              ],
+              position: {
+                start: {line: 4, column: 15, offset: 147},
+                end: {line: 4, column: 35, offset: 167}
+              },
+              identifier: 'http://localhost',
+              label: 'http://localhost',
+              referenceType: 'collapsed'
+            },
+            {
+              type: 'text',
+              value: ', ',
+              position: {
+                start: {line: 4, column: 35, offset: 167},
+                end: {line: 4, column: 37, offset: 169}
+              }
+            },
+            {
+              type: 'linkReference',
+              children: [
+                {
+                  type: 'text',
+                  value: 'https://dev.local',
+                  position: {
+                    start: {line: 4, column: 38, offset: 170},
+                    end: {line: 4, column: 55, offset: 187}
+                  }
+                }
+              ],
+              position: {
+                start: {line: 4, column: 37, offset: 169},
+                end: {line: 4, column: 58, offset: 190}
+              },
+              identifier: 'https://dev.local',
+              label: 'https://dev.local',
+              referenceType: 'collapsed'
+            },
+            {
+              type: 'text',
+              value: ' in paragraph.',
+              position: {
+                start: {line: 4, column: 58, offset: 190},
+                end: {line: 4, column: 72, offset: 204}
+              }
+            }
+          ],
+          position: {
+            start: {line: 4, column: 1, offset: 133},
+            end: {line: 4, column: 72, offset: 204}
+          }
+        }
+      ],
+      position: {
+        start: {line: 1, column: 1, offset: 0},
+        end: {line: 4, column: 72, offset: 204}
+      }
+    },
+    'should support existing link references with identifier as label'
+  )
+
   t.end()
 })
 
 test('mdast -> markdown', function (t) {
+  t.deepEqual(
+    toMarkdown(
+      {
+        type: 'root',
+        children: [
+          {
+            type: 'definition',
+            identifier: 'http://localhost',
+            label: 'http://localhost',
+            title: 'Open example on localhost',
+            url: 'http://localhost',
+            position: {
+              start: {line: 1, column: 1, offset: 0},
+              end: {line: 1, column: 65, offset: 64}
+            }
+          },
+          {
+            type: 'definition',
+            identifier: 'https://dev.local',
+            label: 'https://dev.local',
+            title: 'Open example on localhost',
+            url: 'https://dev.local',
+            position: {
+              start: {line: 2, column: 1, offset: 65},
+              end: {line: 2, column: 67, offset: 131}
+            }
+          },
+          {
+            type: 'paragraph',
+            children: [
+              {
+                type: 'text',
+                value: 'Existing link ',
+                position: {
+                  start: {line: 4, column: 1, offset: 133},
+                  end: {line: 4, column: 15, offset: 147}
+                }
+              },
+              {
+                type: 'linkReference',
+                children: [
+                  {
+                    type: 'text',
+                    value: 'http://localhost',
+                    position: {
+                      start: {line: 4, column: 16, offset: 148},
+                      end: {line: 4, column: 32, offset: 164}
+                    }
+                  }
+                ],
+                position: {
+                  start: {line: 4, column: 15, offset: 147},
+                  end: {line: 4, column: 35, offset: 167}
+                },
+                identifier: 'http://localhost',
+                label: 'http://localhost',
+                referenceType: 'collapsed'
+              },
+              {
+                type: 'text',
+                value: ', ',
+                position: {
+                  start: {line: 4, column: 35, offset: 167},
+                  end: {line: 4, column: 37, offset: 169}
+                }
+              },
+              {
+                type: 'linkReference',
+                children: [
+                  {
+                    type: 'text',
+                    value: 'https://dev.local',
+                    position: {
+                      start: {line: 4, column: 38, offset: 170},
+                      end: {line: 4, column: 55, offset: 187}
+                    }
+                  }
+                ],
+                position: {
+                  start: {line: 4, column: 37, offset: 169},
+                  end: {line: 4, column: 58, offset: 190}
+                },
+                identifier: 'https://dev.local',
+                label: 'https://dev.local',
+                referenceType: 'collapsed'
+              },
+              {
+                type: 'text',
+                value: ' in paragraph.',
+                position: {
+                  start: {line: 4, column: 58, offset: 190},
+                  end: {line: 4, column: 72, offset: 204}
+                }
+              }
+            ],
+            position: {
+              start: {line: 4, column: 1, offset: 133},
+              end: {line: 4, column: 72, offset: 204}
+            }
+          }
+        ],
+        position: {
+          start: {line: 1, column: 1, offset: 0},
+          end: {line: 4, column: 72, offset: 204}
+        }
+      },
+      {extensions: [autolinkLiterals.toMarkdown]}
+    ),
+    `[http://localhost]: http://localhost "Open example on localhost"
+
+[https://dev.local]: https://dev.local "Open example on localhost"
+
+Existing link [http://localhost][], [https://dev.local][] in paragraph.
+`,
+    'should not escape existing link text.'
+  )
+
   t.deepEqual(
     toMarkdown(
       {
