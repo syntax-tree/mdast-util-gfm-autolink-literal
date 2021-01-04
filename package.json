@@ -1,6 +1,6 @@
 {
   "name": "mdast-util-gfm-autolink-literal",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "mdast extension to parse and serialize GFM autolink literals",
   "license": "MIT",
   "keywords": [
