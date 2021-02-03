@@ -1,0 +1,37 @@
+<h1>HTTP</h1>
+<p><a href="https://a.b">https://a.b</a> can start after EOF</p>
+<p>Can start after EOL:
+<a href="https://a.b">https://a.b</a></p>
+<p>Can start after tab:	<a href="https://a.b">https://a.b</a>.</p>
+<p>Can start after space: <a href="https://a.b">https://a.b</a>.</p>
+<p>Can start after left paren (<a href="https://a.b">https://a.b</a>.</p>
+<p>Can start after asterisk *<a href="https://a.b">https://a.b</a>.</p>
+<p>Can start after underscore *_<a href="https://a.b">https://a.b</a>.</p>
+<p>Can start after tilde ~<a href="https://a.b">https://a.b</a>.</p>
+<h1>www</h1>
+<p><a href="http://www.a.b">www.a.b</a> can start after EOF</p>
+<p>Can start after EOL:
+<a href="http://www.a.b">www.a.b</a></p>
+<p>Can start after tab:	<a href="http://www.a.b">www.a.b</a>.</p>
+<p>Can start after space: <a href="http://www.a.b">www.a.b</a>.</p>
+<p>Can start after left paren (<a href="http://www.a.b">www.a.b</a>.</p>
+<p>Can start after asterisk *<a href="http://www.a.b">www.a.b</a>.</p>
+<p>Can start after underscore *_<a href="http://www.a.b">www.a.b</a>.</p>
+<p>Can start after tilde ~<a href="http://www.a.b">www.a.b</a>.</p>
+<h1>Email</h1>
+<h2>Correct character before</h2>
+<p><a href="mailto:a@b.c">a@b.c</a> can start after EOF</p>
+<p>Can start after EOL:
+<a href="mailto:a@b.c">a@b.c</a></p>
+<p>Can start after tab:	<a href="mailto:a@b.c">a@b.c</a>.</p>
+<p>Can start after space: <a href="mailto:a@b.c">a@b.c</a>.</p>
+<p>Can start after left paren(<a href="mailto:a@b.c">a@b.c</a>.</p>
+<p>Can start after asterisk*<a href="mailto:a@b.c">a@b.c</a>.</p>
+<p>While theoretically it’s possible to start at an underscore, that underscore
+is part of the email, so it’s in fact part of the link: <a href="mailto:_a@b.c">_a@b.c</a>.</p>
+<p>Can start after tilde~<a href="mailto:a@b.c">a@b.c</a>.</p>
+<h2>Others characters before</h2>
+<p>While other characters before the email aren’t allowed by GFM, they work on
+github.com: !<a href="mailto:a@b.c">a@b.c</a>, "<a href="mailto:a@b.c">a@b.c</a>, #<a href="mailto:a@b.c">a@b.c</a>, $<a href="mailto:a@b.c">a@b.c</a>, &amp;<a href="mailto:a@b.c">a@b.c</a>, '<a href="mailto:a@b.c">a@b.c</a>, )<a href="mailto:a@b.c">a@b.c</a>, <a href="mailto:+a@b.c">+a@b.c</a>,
+,<a href="mailto:a@b.c">a@b.c</a>, <a href="mailto:-a@b.c">-a@b.c</a>, <a href="mailto:.a@b.c">.a@b.c</a>, /a@b.c, :<a href="mailto:a@b.c">a@b.c</a>, ;<a href="mailto:a@b.c">a@b.c</a>, &lt;<a href="mailto:a@b.c">a@b.c</a>, =<a href="mailto:a@b.c">a@b.c</a>, ><a href="mailto:a@b.c">a@b.c</a>, ?<a href="mailto:a@b.c">a@b.c</a>,
+@<a href="mailto:a@b.c">a@b.c</a>, \<a href="mailto:a@b.c">a@b.c</a>, ]<a href="mailto:a@b.c">a@b.c</a>, ^<a href="mailto:a@b.c">a@b.c</a>, `<a href="mailto:a@b.c">a@b.c</a>, {<a href="mailto:a@b.c">a@b.c</a>, }<a href="mailto:a@b.c">a@b.c</a>.</p>

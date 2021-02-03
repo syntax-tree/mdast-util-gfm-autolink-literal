@@ -1,17 +1,20 @@
+'use strict'
+
+var fs = require('fs')
+var path = require('path')
 var test = require('tape')
+var toHtml = require('hast-util-to-html')
+var toHast = require('mdast-util-to-hast')
 var fromMarkdown = require('mdast-util-from-markdown')
 var toMarkdown = require('mdast-util-to-markdown')
 var syntax = require('micromark-extension-gfm-autolink-literal')
-var autolinkLiterals = require('.')
+var autolinkLiterals = require('..')
 
 test('markdown -> mdast', function (t) {
   t.deepEqual(
     fromMarkdown(
       'www.example.com, https://example.com, and contact@example.com.',
-      {
-        extensions: [syntax],
-        mdastExtensions: [autolinkLiterals.fromMarkdown]
-      }
+      {extensions: [syntax], mdastExtensions: [autolinkLiterals.fromMarkdown]}
     ),
     {
       type: 'root',
@@ -310,6 +313,31 @@ test('mdast -> markdown', function (t) {
     '![a](http://a)\n',
     'should not escape colons in image (resource) labels'
   )
+
+  fs.readdirSync(__dirname)
+    .filter((d) => path.extname(d) === '.md')
+    .forEach((d) => {
+      var stem = path.basename(d, '.md')
+      var actual = toHtml(
+        toHast(
+          fromMarkdown(fs.readFileSync(path.join(__dirname, d)), {
+            extensions: [syntax],
+            mdastExtensions: [autolinkLiterals.fromMarkdown]
+          }),
+          {allowDangerousHtml: true}
+        ),
+        {allowDangerousHtml: true, entities: {useNamedReferences: true}}
+      )
+      var expected = String(
+        fs.readFileSync(path.join(__dirname, stem + '.html'))
+      )
+
+      if (actual.charCodeAt(actual.length - 1) !== 10) {
+        actual += '\n'
+      }
+
+      t.deepEqual(actual, expected, stem)
+    })
 
   t.end()
 })

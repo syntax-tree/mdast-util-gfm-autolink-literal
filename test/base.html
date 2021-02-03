@@ -1,0 +1,60 @@
+<h1>Literal autolinks</h1>
+<h2>WWW autolinks</h2>
+<p>w.commonmark.org</p>
+<p>ww.commonmark.org</p>
+<p><a href="http://www.commonmark.org">www.commonmark.org</a></p>
+<p><a href="http://Www.commonmark.org">Www.commonmark.org</a></p>
+<p><a href="http://wWw.commonmark.org">wWw.commonmark.org</a></p>
+<p><a href="http://wwW.commonmark.org">wwW.commonmark.org</a></p>
+<p><a href="http://WWW.COMMONMARK.ORG">WWW.COMMONMARK.ORG</a></p>
+<p>Visit <a href="http://www.commonmark.org/help">www.commonmark.org/help</a> for more information.</p>
+<p>Visit <a href="http://www.commonmark.org">www.commonmark.org</a>.</p>
+<p>Visit <a href="http://www.commonmark.org/a.b">www.commonmark.org/a.b</a>.</p>
+<p>www.aaa.bbb.ccc_ccc</p>
+<p>www.aaa_bbb.ccc</p>
+<p>www.aaa.bbb.ccc.ddd_ddd</p>
+<p>www.aaa.bbb.ccc_ccc.ddd</p>
+<p><a href="http://www.aaa.bbb_bbb.ccc.ddd">www.aaa.bbb_bbb.ccc.ddd</a></p>
+<p><a href="http://www.aaa_aaa.bbb.ccc.ddd">www.aaa_aaa.bbb.ccc.ddd</a></p>
+<p>Visit <a href="http://www.commonmark.org">www.commonmark.org</a>.</p>
+<p>Visit <a href="http://www.commonmark.org/a.b">www.commonmark.org/a.b</a>.</p>
+<p><a href="http://www.google.com/search?q=Markup+(business)">www.google.com/search?q=Markup+(business)</a></p>
+<p><a href="http://www.google.com/search?q=Markup+(business)">www.google.com/search?q=Markup+(business)</a>))</p>
+<p>(<a href="http://www.google.com/search?q=Markup+(business)">www.google.com/search?q=Markup+(business)</a>)</p>
+<p>(<a href="http://www.google.com/search?q=Markup+(business)">www.google.com/search?q=Markup+(business)</a></p>
+<p><a href="http://www.google.com/search?q=(business))+ok">www.google.com/search?q=(business))+ok</a></p>
+<p><a href="http://www.google.com/search?q=commonmark&amp;hl=en">www.google.com/search?q=commonmark&amp;hl=en</a></p>
+<p><a href="http://www.google.com/search?q=commonmark&amp;hl;en">www.google.com/search?q=commonmark&amp;hl;en</a></p>
+<p><a href="http://www.google.com/search?q=commonmark">www.google.com/search?q=commonmark</a>&amp;hl;</p>
+<p><a href="http://www.commonmark.org/he">www.commonmark.org/he</a>&lt;lp</p>
+<h2>HTTP autolinks</h2>
+<p>hexample.com</p>
+<p>htexample.com</p>
+<p>httexample.com</p>
+<p>httpexample.com</p>
+<p>http:example.com</p>
+<p>http:/example.com</p>
+<p>https:/example.com</p>
+<p><a href="http://example.com">http://example.com</a></p>
+<p><a href="https://example.com">https://example.com</a></p>
+<p><a href="https://example">https://example</a></p>
+<p><a href="http://commonmark.org">http://commonmark.org</a></p>
+<p>(Visit <a href="https://encrypted.google.com/search?q=Markup+(business)">https://encrypted.google.com/search?q=Markup+(business)</a>)</p>
+<h2>Email autolinks</h2>
+<p>No dot: foo@barbaz</p>
+<p>No dot: foo@barbaz.</p>
+<p><a href="mailto:foo@bar.baz">foo@bar.baz</a></p>
+<p>hello@mail+xyz.example isn’t valid, but <a href="mailto:hello+xyz@mail.example">hello+xyz@mail.example</a> is.</p>
+<p><a href="mailto:a.b-c_d@a.b">a.b-c_d@a.b</a></p>
+<p><a href="mailto:a.b-c_d@a.b">a.b-c_d@a.b</a>.</p>
+<p>a.b-c_d@a.b-</p>
+<p>a.b-c_d@a.b_</p>
+<p><a href="mailto:a@a_b.c">a@a_b.c</a></p>
+<p><a href="mailto:a@a-b.c">a@a-b.c</a></p>
+<p>Can’t end in an underscore followed by a period: aaa@a.b_.</p>
+<p>Can contain an underscore followed by a period: <a href="mailto:aaa@a.b_.c">aaa@a.b_.c</a></p>
+<h2>Link text should not be expanded</h2>
+<p><a href="http://www.example.com">Visit www.example.com</a> please.</p>
+<p><a href="http://www.example.com">Visit http://www.example.com</a> please.</p>
+<p><a href="mailto:example@example.com">Mail example@example.com</a> please.</p>
+<p><a href="">link</a> <a href="http://autolink">http://autolink</a> should still be expanded.</p>

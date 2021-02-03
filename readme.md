@@ -14,8 +14,8 @@ autolink literals in **[mdast][]**.
 When parsing (`from-markdown`), must be combined with
 [`micromark-extension-gfm-autolink-literal`][extension].
 
-You probably shouldn’t use this package directly, but instead use
-[`remark-gfm`][remark-gfm] with **[remark][]**.
+You might want to use this package through [`remark-gfm`][remark-gfm] with
+**[remark][]**.
 
 ## Install
 

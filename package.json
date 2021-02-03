@@ -34,11 +34,17 @@
     "index.js",
     "to-markdown.js"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "ccount": "^1.0.0",
+    "mdast-util-find-and-replace": "^1.1.0",
+    "micromark": "^2.11.3"
+  },
   "devDependencies": {
-    "mdast-util-from-markdown": "^0.8.0",
+    "hast-util-to-html": "^7.0.0",
+    "mdast-util-from-markdown": "^0.8.5",
+    "mdast-util-to-hast": "^10.0.0",
     "mdast-util-to-markdown": "^0.6.0",
-    "micromark-extension-gfm-autolink-literal": "^0.5.0",
+    "micromark-extension-gfm-autolink-literal": "^0.5.6",
     "nyc": "^15.0.0",
     "prettier": "^2.0.0",
     "remark-cli": "^9.0.0",
@@ -49,7 +55,7 @@
   "scripts": {
     "format": "remark . -qfo && prettier . -w --loglevel warn && xo --fix",
     "test-api": "node test",
-    "test-coverage": "nyc --reporter lcov tape test.js",
+    "test-coverage": "nyc --reporter lcov tape test/index.js",
     "test": "npm run format && npm run test-coverage"
   },
   "nyc": {
@@ -68,7 +74,13 @@
   },
   "xo": {
     "prettier": true,
-    "esnext": false
+    "esnext": false,
+    "rules": {
+      "max-params": "off",
+      "no-self-compare": "off",
+      "unicorn/prefer-includes": "off",
+      "unicorn/prefer-optional-catch-binding": "off"
+    }
   },
   "remarkConfig": {
     "plugins": [
