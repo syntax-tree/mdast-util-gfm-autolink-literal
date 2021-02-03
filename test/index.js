@@ -118,6 +118,51 @@ test('markdown -> mdast', function (t) {
     'should support autolink literals'
   )
 
+  t.deepEqual(
+    fromMarkdown('[https://google.com](https://google.com)', {
+      extensions: [syntax],
+      mdastExtensions: [autolinkLiterals.fromMarkdown]
+    }),
+    {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'link',
+              title: null,
+              url: 'https://google.com',
+              children: [
+                {
+                  type: 'text',
+                  value: 'https://google.com',
+                  position: {
+                    start: {line: 1, column: 2, offset: 1},
+                    end: {line: 1, column: 20, offset: 19}
+                  }
+                }
+              ],
+              position: {
+                start: {line: 1, column: 1, offset: 0},
+                end: {line: 1, column: 41, offset: 40}
+              }
+            }
+          ],
+          position: {
+            start: {line: 1, column: 1, offset: 0},
+            end: {line: 1, column: 41, offset: 40}
+          }
+        }
+      ],
+      position: {
+        start: {line: 1, column: 1, offset: 0},
+        end: {line: 1, column: 41, offset: 40}
+      }
+    },
+    'should support normal links'
+  )
+
   t.end()
 })
 
