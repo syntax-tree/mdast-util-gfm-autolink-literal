@@ -64,3 +64,11 @@ While other characters before the email aren’t allowed by GFM, they work on
 github.com: !a@b.c, "a@b.c, #a@b.c, $a@b.c, &a@b.c, 'a@b.c, )a@b.c, +a@b.c,
 ,a@b.c, -a@b.c, .a@b.c, /a@b.c, :a@b.c, ;a@b.c, <a@b.c, =a@b.c, >a@b.c, ?a@b.c,
 @a@b.c, \a@b.c, ]a@b.c, ^a@b.c, `a@b.c, {a@b.c, }a@b.c.
+
+## remarkjs/remark#678
+
+,https://github.com
+
+[ ,https://github.com
+
+[asd] ,https://github.com
