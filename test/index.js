@@ -1,20 +1,24 @@
-'use strict'
-
-var fs = require('fs')
-var path = require('path')
-var test = require('tape')
-var toHtml = require('hast-util-to-html')
-var toHast = require('mdast-util-to-hast')
-var fromMarkdown = require('mdast-util-from-markdown')
-var toMarkdown = require('mdast-util-to-markdown')
-var syntax = require('micromark-extension-gfm-autolink-literal')
-var autolinkLiterals = require('..')
+import fs from 'fs'
+import path from 'path'
+import test from 'tape'
+import {toHtml} from 'hast-util-to-html'
+import {toHast} from 'mdast-util-to-hast'
+import fromMarkdown from 'mdast-util-from-markdown'
+import toMarkdown from 'mdast-util-to-markdown'
+import gfmAutolinkLiteral from 'micromark-extension-gfm-autolink-literal'
+import {
+  gfmAutolinkLiteralFromMarkdown,
+  gfmAutolinkLiteralToMarkdown
+} from '../index.js'
 
 test('markdown -> mdast', function (t) {
   t.deepEqual(
     fromMarkdown(
       'www.example.com, https://example.com, and contact@example.com.',
-      {extensions: [syntax], mdastExtensions: [autolinkLiterals.fromMarkdown]}
+      {
+        extensions: [gfmAutolinkLiteral],
+        mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
+      }
     ),
     {
       type: 'root',
@@ -120,8 +124,8 @@ test('markdown -> mdast', function (t) {
 
   t.deepEqual(
     fromMarkdown('[https://google.com](https://google.com)', {
-      extensions: [syntax],
-      mdastExtensions: [autolinkLiterals.fromMarkdown]
+      extensions: [gfmAutolinkLiteral],
+      mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
     }),
     {
       type: 'root',
@@ -182,7 +186,7 @@ test('mdast -> markdown', function (t) {
           {type: 'text', value: ' c.'}
         ]
       },
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     'a <contact@example.com> c.\n',
     'should not serialize autolink literals'
@@ -191,7 +195,7 @@ test('mdast -> markdown', function (t) {
   t.deepEqual(
     toMarkdown(
       {type: 'paragraph', children: [{type: 'text', value: 'a b@c.d'}]},
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     'a b\\@c.d\n',
     'should escape at signs if they appear in what looks like an email'
@@ -200,7 +204,7 @@ test('mdast -> markdown', function (t) {
   t.deepEqual(
     toMarkdown(
       {type: 'paragraph', children: [{type: 'text', value: 'a @c'}]},
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     'a @c\n',
     'should not escape at signs if they appear in what can’t be an email'
@@ -209,7 +213,7 @@ test('mdast -> markdown', function (t) {
   t.deepEqual(
     toMarkdown(
       {type: 'paragraph', children: [{type: 'text', value: 'a www.b.c'}]},
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     'a www\\.b.c\n',
     'should escape dots if they appear in what looks like a domain'
@@ -218,7 +222,7 @@ test('mdast -> markdown', function (t) {
   t.deepEqual(
     toMarkdown(
       {type: 'paragraph', children: [{type: 'text', value: 'a.b'}]},
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     'a.b\n',
     'should not escape dots if they appear in what can’t be a domain'
@@ -227,7 +231,7 @@ test('mdast -> markdown', function (t) {
   t.deepEqual(
     toMarkdown(
       {type: 'paragraph', children: [{type: 'text', value: 'https:/'}]},
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     'https\\:/\n',
     'should escape colons if they appear in what looks like a http protocol'
@@ -236,7 +240,7 @@ test('mdast -> markdown', function (t) {
   t.deepEqual(
     toMarkdown(
       {type: 'paragraph', children: [{type: 'text', value: 'https:a'}]},
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     'https:a\n',
     'should not escape colons if they appear in what can’t be a http protocol'
@@ -245,7 +249,7 @@ test('mdast -> markdown', function (t) {
   t.deepEqual(
     toMarkdown(
       {type: 'definition', label: 'http://a'},
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     '[http://a]: <>\n',
     'should not escape colons in definition labels'
@@ -263,7 +267,7 @@ test('mdast -> markdown', function (t) {
           }
         ]
       },
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     '[http://a][]\n',
     'should not escape colons in link (reference) labels (shortcut)'
@@ -281,7 +285,7 @@ test('mdast -> markdown', function (t) {
           }
         ]
       },
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     '[http://a][a]\n',
     'should not escape colons in link (reference) labels (text)'
@@ -299,7 +303,7 @@ test('mdast -> markdown', function (t) {
           }
         ]
       },
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     '[a][http://a]\n',
     'should not escape colons in link (reference) labels (label)'
@@ -317,7 +321,7 @@ test('mdast -> markdown', function (t) {
           }
         ]
       },
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     '[a](http://a)\n',
     'should not escape colons in link (resource) labels'
@@ -329,7 +333,7 @@ test('mdast -> markdown', function (t) {
         type: 'paragraph',
         children: [{type: 'imageReference', label: 'http://a', alt: 'a'}]
       },
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     '![a][http://a]\n',
     'should not escape colons in image (reference) labels (label)'
@@ -341,7 +345,7 @@ test('mdast -> markdown', function (t) {
         type: 'paragraph',
         children: [{type: 'imageReference', label: 'a', alt: 'http://a'}]
       },
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     '![http://a][a]\n',
     'should not escape colons in image (reference) labels (alt)'
@@ -353,29 +357,27 @@ test('mdast -> markdown', function (t) {
         type: 'paragraph',
         children: [{type: 'image', url: 'http://a', alt: 'a'}]
       },
-      {extensions: [autolinkLiterals.toMarkdown]}
+      {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     '![a](http://a)\n',
     'should not escape colons in image (resource) labels'
   )
 
-  fs.readdirSync(__dirname)
+  fs.readdirSync('test')
     .filter((d) => path.extname(d) === '.md')
     .forEach((d) => {
       var stem = path.basename(d, '.md')
       var actual = toHtml(
         toHast(
-          fromMarkdown(fs.readFileSync(path.join(__dirname, d)), {
-            extensions: [syntax],
-            mdastExtensions: [autolinkLiterals.fromMarkdown]
+          fromMarkdown(fs.readFileSync(path.join('test', d)), {
+            extensions: [gfmAutolinkLiteral],
+            mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
           }),
           {allowDangerousHtml: true}
         ),
         {allowDangerousHtml: true, entities: {useNamedReferences: true}}
       )
-      var expected = String(
-        fs.readFileSync(path.join(__dirname, stem + '.html'))
-      )
+      var expected = String(fs.readFileSync(path.join('test', stem + '.html')))
 
       if (actual.charCodeAt(actual.length - 1) !== 10) {
         actual += '\n'

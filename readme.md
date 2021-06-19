@@ -19,6 +19,9 @@ You might want to use this package through [`remark-gfm`][remark-gfm] with
 
 ## Install
 
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -91,13 +94,9 @@ Now, running `node example` yields:
 
 ## API
 
-### `autolinkLiteral.fromMarkdown`
+### `gfmAutolinkLiteralFromMarkdown`
 
-### `autolinkLiteral.toMarkdown`
-
-> Note: the separate extensions are also available at
-> `mdast-util-gfm-autolink-literal/from-markdown` and
-> `mdast-util-gfm-autolink-literal/to-markdown`.
+### `gfmAutolinkLiteralToMarkdown`
 
 Support literal autolinks.
 The exports are extensions, respectively
