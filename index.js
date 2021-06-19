@@ -3,8 +3,8 @@ import {findAndReplace} from 'mdast-util-find-and-replace'
 import unicodePunctuation from 'micromark/dist/character/unicode-punctuation.js'
 import unicodeWhitespace from 'micromark/dist/character/unicode-whitespace.js'
 
-var inConstruct = 'phrasing'
-var notInConstruct = ['autolink', 'link', 'image', 'label']
+const inConstruct = 'phrasing'
+const notInConstruct = ['autolink', 'link', 'image', 'label']
 
 export const gfmAutolinkLiteralFromMarkdown = {
   transforms: [transformGfmAutolinkLiterals],
@@ -78,10 +78,9 @@ function transformGfmAutolinkLiterals(tree) {
   )
 }
 
+// eslint-disable-next-line max-params
 function findUrl($0, protocol, domain, path, match) {
-  var prefix = ''
-  var parts
-  var result
+  let prefix = ''
 
   // Not an expected previous character.
   if (!previous(match)) {
@@ -99,11 +98,11 @@ function findUrl($0, protocol, domain, path, match) {
     return false
   }
 
-  parts = splitUrl(domain + path)
+  const parts = splitUrl(domain + path)
 
   if (!parts[0]) return false
 
-  result = {
+  let result = {
     type: 'link',
     title: null,
     url: prefix + protocol + parts[0],
@@ -132,7 +131,7 @@ function findEmail($0, atext, label, match) {
 }
 
 function isCorrectDomain(domain) {
-  var parts = domain.split('.')
+  const parts = domain.split('.')
 
   if (
     parts.length < 2 ||
@@ -150,10 +149,10 @@ function isCorrectDomain(domain) {
 }
 
 function splitUrl(url) {
-  var trail = /[!"&'),.:;<>?\]}]+$/.exec(url)
-  var closingParenIndex
-  var openingParens
-  var closingParens
+  let trail = /[!"&'),.:;<>?\]}]+$/.exec(url)
+  let closingParenIndex
+  let openingParens
+  let closingParens
 
   if (trail) {
     url = url.slice(0, trail.index)
@@ -174,9 +173,11 @@ function splitUrl(url) {
 }
 
 function previous(match, email) {
-  var code = match.input.charCodeAt(match.index - 1)
+  const code = match.input.charCodeAt(match.index - 1)
   return (
-    (code !== code || unicodeWhitespace(code) || unicodePunctuation(code)) &&
+    (match.index === 0 ||
+      unicodeWhitespace(code) ||
+      unicodePunctuation(code)) &&
     (!email || code !== 47)
   )
 }

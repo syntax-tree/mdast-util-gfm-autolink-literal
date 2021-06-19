@@ -11,7 +11,7 @@ import {
   gfmAutolinkLiteralToMarkdown
 } from '../index.js'
 
-test('markdown -> mdast', function (t) {
+test('markdown -> mdast', (t) => {
   t.deepEqual(
     fromMarkdown(
       'www.example.com, https://example.com, and contact@example.com.',
@@ -170,7 +170,7 @@ test('markdown -> mdast', function (t) {
   t.end()
 })
 
-test('mdast -> markdown', function (t) {
+test('mdast -> markdown', (t) => {
   t.deepEqual(
     toMarkdown(
       {
@@ -363,28 +363,30 @@ test('mdast -> markdown', function (t) {
     'should not escape colons in image (resource) labels'
   )
 
-  fs.readdirSync('test')
-    .filter((d) => path.extname(d) === '.md')
-    .forEach((d) => {
-      var stem = path.basename(d, '.md')
-      var actual = toHtml(
-        toHast(
-          fromMarkdown(fs.readFileSync(path.join('test', d)), {
-            extensions: [gfmAutolinkLiteral],
-            mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
-          }),
-          {allowDangerousHtml: true}
-        ),
-        {allowDangerousHtml: true, entities: {useNamedReferences: true}}
-      )
-      var expected = String(fs.readFileSync(path.join('test', stem + '.html')))
+  const files = fs.readdirSync('test').filter((d) => path.extname(d) === '.md')
+  let index = -1
 
-      if (actual.charCodeAt(actual.length - 1) !== 10) {
-        actual += '\n'
-      }
+  while (++index < files.length) {
+    const d = files[index]
+    const stem = path.basename(d, '.md')
+    let actual = toHtml(
+      toHast(
+        fromMarkdown(fs.readFileSync(path.join('test', d)), {
+          extensions: [gfmAutolinkLiteral],
+          mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
+        }),
+        {allowDangerousHtml: true}
+      ),
+      {allowDangerousHtml: true, entities: {useNamedReferences: true}}
+    )
+    const expected = String(fs.readFileSync(path.join('test', stem + '.html')))
 
-      t.deepEqual(actual, expected, stem)
-    })
+    if (actual.charCodeAt(actual.length - 1) !== 10) {
+      actual += '\n'
+    }
+
+    t.deepEqual(actual, expected, stem)
+  }
 
   t.end()
 })
