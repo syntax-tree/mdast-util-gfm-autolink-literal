@@ -14,8 +14,10 @@ autolink literals in **[mdast][]**.
 When parsing (`from-markdown`), must be combined with
 [`micromark-extension-gfm-autolink-literal`][extension].
 
-You might want to use this package through [`remark-gfm`][remark-gfm] with
-**[remark][]**.
+## When to use this
+
+Use [`mdast-util-gfm`][mdast-util-gfm] if you want all of GFM.
+Use this otherwise.
 
 ## Install
 
@@ -30,24 +32,24 @@ npm install mdast-util-gfm-autolink-literal
 
 ## Use
 
-Say our script, `example.js`, looks as follows:
+Say our module, `example.js`, looks as follows:
 
 ```js
-var fromMarkdown = require('mdast-util-from-markdown')
-var toMarkdown = require('mdast-util-to-markdown')
-var syntax = require('micromark-extension-gfm-autolink-literal')
-var autolinkLiteral = require('mdast-util-gfm-autolink-literal')
+import {fromMarkdown} from 'mdast-util-from-markdown'
+import {toMarkdown} from 'mdast-util-to-markdown'
+import {gfmAutolinkLiteral} from 'micromark-extension-gfm-autolink-literal'
+import {gfmAutolinkLiteralFromMarkdown, gfmAutolinkLiteralToMarkdown} from 'mdast-util-gfm-autolink-literal'
 
-var doc = 'www.example.com, https://example.com, and contact@example.com.'
+const doc = 'www.example.com, https://example.com, and contact@example.com.'
 
-var tree = fromMarkdown(doc, {
-  extensions: [syntax],
-  mdastExtensions: [autolinkLiteral.fromMarkdown]
+const tree = fromMarkdown(doc, {
+  extensions: [gfmAutolinkLiteral],
+  mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
 })
 
 console.log(tree)
 
-var out = toMarkdown(tree, {extensions: [autolinkLiteral.toMarkdown]})
+const out = toMarkdown(tree, {extensions: [gfmAutolinkLiteralToMarkdown]})
 
 console.log(out)
 ```
@@ -173,6 +175,8 @@ abide by its terms.
 [coc]: https://github.com/syntax-tree/.github/blob/HEAD/code-of-conduct.md
 
 [mdast]: https://github.com/syntax-tree/mdast
+
+[mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
 
 [remark]: https://github.com/remarkjs/remark
 
