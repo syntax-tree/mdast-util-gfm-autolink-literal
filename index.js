@@ -1,11 +1,21 @@
+/**
+ * @typedef {import('mdast-util-from-markdown').Extension} FromMarkdownExtension
+ * @typedef {import('mdast-util-from-markdown').Transform} FromMarkdownTransform
+ * @typedef {import('mdast-util-from-markdown').Handle} FromMarkdownHandle
+ * @typedef {import('mdast-util-to-markdown/lib/types.js').Options} ToMarkdownExtension
+ * @typedef {import('mdast-util-find-and-replace').ReplaceFunction} ReplaceFunction
+ * @typedef {import('mdast-util-find-and-replace').RegExpMatchObject} RegExpMatchObject
+ * @typedef {import('mdast-util-find-and-replace').PhrasingContent} PhrasingContent
+ */
+
 import {ccount} from 'ccount'
 import {findAndReplace} from 'mdast-util-find-and-replace'
-import unicodePunctuation from 'micromark/dist/character/unicode-punctuation.js'
-import unicodeWhitespace from 'micromark/dist/character/unicode-whitespace.js'
+import {unicodePunctuation, unicodeWhitespace} from 'micromark-util-character'
 
 const inConstruct = 'phrasing'
 const notInConstruct = ['autolink', 'link', 'image', 'label']
 
+/** @type {FromMarkdownExtension} */
 export const gfmAutolinkLiteralFromMarkdown = {
   transforms: [transformGfmAutolinkLiterals],
   enter: {
@@ -22,6 +32,7 @@ export const gfmAutolinkLiteralFromMarkdown = {
   }
 }
 
+/** @type {ToMarkdownExtension} */
 export const gfmAutolinkLiteralToMarkdown = {
   unsafe: [
     {
@@ -42,31 +53,39 @@ export const gfmAutolinkLiteralToMarkdown = {
   ]
 }
 
+/** @type {FromMarkdownHandle} */
 function enterLiteralAutolink(token) {
+  // @ts-expect-error: `null` is fine.
   this.enter({type: 'link', title: null, url: '', children: []}, token)
 }
 
+/** @type {FromMarkdownHandle} */
 function enterLiteralAutolinkValue(token) {
   this.config.enter.autolinkProtocol.call(this, token)
 }
 
+/** @type {FromMarkdownHandle} */
 function exitLiteralAutolinkHttp(token) {
   this.config.exit.autolinkProtocol.call(this, token)
 }
 
+/** @type {FromMarkdownHandle} */
 function exitLiteralAutolinkWww(token) {
   this.config.exit.data.call(this, token)
   this.stack[this.stack.length - 1].url = 'http://' + this.sliceSerialize(token)
 }
 
+/** @type {FromMarkdownHandle} */
 function exitLiteralAutolinkEmail(token) {
   this.config.exit.autolinkEmail.call(this, token)
 }
 
+/** @type {FromMarkdownHandle} */
 function exitLiteralAutolink(token) {
   this.exit(token)
 }
 
+/** @type {FromMarkdownTransform} */
 function transformGfmAutolinkLiterals(tree) {
   findAndReplace(
     tree,
@@ -78,8 +97,16 @@ function transformGfmAutolinkLiterals(tree) {
   )
 }
 
+/**
+ * @type {ReplaceFunction}
+ * @param {string} _
+ * @param {string} protocol
+ * @param {string} domain
+ * @param {string} path
+ * @param {RegExpMatchObject} match
+ */
 // eslint-disable-next-line max-params
-function findUrl($0, protocol, domain, path, match) {
+function findUrl(_, protocol, domain, path, match) {
   let prefix = ''
 
   // Not an expected previous character.
@@ -102,7 +129,9 @@ function findUrl($0, protocol, domain, path, match) {
 
   if (!parts[0]) return false
 
-  let result = {
+  /** @type {PhrasingContent} */
+  // @ts-expect-error: `null` is fine.
+  const result = {
     type: 'link',
     title: null,
     url: prefix + protocol + parts[0],
@@ -110,13 +139,20 @@ function findUrl($0, protocol, domain, path, match) {
   }
 
   if (parts[1]) {
-    result = [result, {type: 'text', value: parts[1]}]
+    return [result, {type: 'text', value: parts[1]}]
   }
 
   return result
 }
 
-function findEmail($0, atext, label, match) {
+/**
+ * @type {ReplaceFunction}
+ * @param {string} _
+ * @param {string} atext
+ * @param {string} label
+ * @param {RegExpMatchObject} match
+ */
+function findEmail(_, atext, label, match) {
   // Not an expected previous character.
   if (!previous(match, true) || /[_-]$/.test(label)) {
     return false
@@ -124,12 +160,17 @@ function findEmail($0, atext, label, match) {
 
   return {
     type: 'link',
+    // @ts-expect-error: `null` is fine.
     title: null,
     url: 'mailto:' + atext + '@' + label,
     children: [{type: 'text', value: atext + '@' + label}]
   }
 }
 
+/**
+ * @param {string} domain
+ * @returns {boolean}
+ */
 function isCorrectDomain(domain) {
   const parts = domain.split('.')
 
@@ -148,15 +189,24 @@ function isCorrectDomain(domain) {
   return true
 }
 
+/**
+ * @param {string} url
+ * @returns {[string, string|undefined]}
+ */
 function splitUrl(url) {
-  let trail = /[!"&'),.:;<>?\]}]+$/.exec(url)
+  const trailExec = /[!"&'),.:;<>?\]}]+$/.exec(url)
+  /** @type {number} */
   let closingParenIndex
+  /** @type {number} */
   let openingParens
+  /** @type {number} */
   let closingParens
+  /** @type {string|undefined} */
+  let trail
 
-  if (trail) {
-    url = url.slice(0, trail.index)
-    trail = trail[0]
+  if (trailExec) {
+    url = url.slice(0, trailExec.index)
+    trail = trailExec[0]
     closingParenIndex = trail.indexOf(')')
     openingParens = ccount(url, '(')
     closingParens = ccount(url, ')')
@@ -172,8 +222,14 @@ function splitUrl(url) {
   return [url, trail]
 }
 
+/**
+ * @param {RegExpMatchObject} match
+ * @param {boolean} [email=false]
+ * @returns {boolean}
+ */
 function previous(match, email) {
   const code = match.input.charCodeAt(match.index - 1)
+
   return (
     (match.index === 0 ||
       unicodeWhitespace(code) ||

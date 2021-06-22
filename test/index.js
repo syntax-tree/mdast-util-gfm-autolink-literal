@@ -3,9 +3,9 @@ import path from 'path'
 import test from 'tape'
 import {toHtml} from 'hast-util-to-html'
 import {toHast} from 'mdast-util-to-hast'
-import fromMarkdown from 'mdast-util-from-markdown'
-import toMarkdown from 'mdast-util-to-markdown'
-import gfmAutolinkLiteral from 'micromark-extension-gfm-autolink-literal'
+import {fromMarkdown} from 'mdast-util-from-markdown'
+import {toMarkdown} from 'mdast-util-to-markdown'
+import {gfmAutolinkLiteral} from 'micromark-extension-gfm-autolink-literal'
 import {
   gfmAutolinkLiteralFromMarkdown,
   gfmAutolinkLiteralToMarkdown
