@@ -1,4 +1,5 @@
 /**
+ * @typedef {import('mdast').Link} Link
  * @typedef {import('mdast-util-from-markdown').Extension} FromMarkdownExtension
  * @typedef {import('mdast-util-from-markdown').Transform} FromMarkdownTransform
  * @typedef {import('mdast-util-from-markdown').Handle} FromMarkdownHandle
@@ -55,7 +56,6 @@ export const gfmAutolinkLiteralToMarkdown = {
 
 /** @type {FromMarkdownHandle} */
 function enterLiteralAutolink(token) {
-  // @ts-expect-error: `null` is fine.
   this.enter({type: 'link', title: null, url: '', children: []}, token)
 }
 
@@ -72,7 +72,8 @@ function exitLiteralAutolinkHttp(token) {
 /** @type {FromMarkdownHandle} */
 function exitLiteralAutolinkWww(token) {
   this.config.exit.data.call(this, token)
-  this.stack[this.stack.length - 1].url = 'http://' + this.sliceSerialize(token)
+  const node = /** @type {Link} */ (this.stack[this.stack.length - 1])
+  node.url = 'http://' + this.sliceSerialize(token)
 }
 
 /** @type {FromMarkdownHandle} */
@@ -130,7 +131,6 @@ function findUrl(_, protocol, domain, path, match) {
   if (!parts[0]) return false
 
   /** @type {PhrasingContent} */
-  // @ts-expect-error: `null` is fine.
   const result = {
     type: 'link',
     title: null,
@@ -160,7 +160,6 @@ function findEmail(_, atext, label, match) {
 
   return {
     type: 'link',
-    // @ts-expect-error: `null` is fine.
     title: null,
     url: 'mailto:' + atext + '@' + label,
     children: [{type: 'text', value: atext + '@' + label}]
