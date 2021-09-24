@@ -108,6 +108,8 @@ Can’t end in an underscore followed by a period: aaa@a.b_.
 
 Can contain an underscore followed by a period: aaa@a.b_.c
 
+Can't have a domain with no letters: mdast-util-gfm-autolink-literal@1.0.1
+
 ## Link text should not be expanded
 
 [Visit www.example.com](http://www.example.com) please.

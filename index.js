@@ -158,6 +158,11 @@ function findEmail(_, atext, label, match) {
     return false
   }
 
+  // Do not link if label does not contain a letter.
+  if (!/[a-z]/i.test(label)) {
+    return false
+  }
+
   return {
     type: 'link',
     title: null,
