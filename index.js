@@ -6,7 +6,7 @@
  * @typedef {import('mdast-util-to-markdown/lib/types.js').Options} ToMarkdownExtension
  * @typedef {import('mdast-util-find-and-replace').ReplaceFunction} ReplaceFunction
  * @typedef {import('mdast-util-find-and-replace').RegExpMatchObject} RegExpMatchObject
- * @typedef {import('mdast-util-find-and-replace').PhrasingContent} PhrasingContent
+ * @typedef {import('mdast').PhrasingContent} PhrasingContent
  */
 
 import {ccount} from 'ccount'
