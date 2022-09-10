@@ -157,7 +157,7 @@ function findEmail(_, atext, label, match) {
     // Not an expected previous character.
     !previous(match, true) ||
     // Label ends in not allowed character.
-    /[_-\d]$/.test(label)
+    /[-\d_]$/.test(label)
   ) {
     return false
   }
