@@ -1,3 +1,4 @@
+import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import test from 'tape'
@@ -248,7 +249,7 @@ test('mdast -> markdown', (t) => {
 
   t.deepEqual(
     toMarkdown(
-      {type: 'definition', label: 'http://a'},
+      {type: 'definition', label: 'http://a', identifier: '', url: ''},
       {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
     '[http://a]: <>\n',
@@ -263,6 +264,8 @@ test('mdast -> markdown', (t) => {
           {
             type: 'linkReference',
             label: 'http://a',
+            identifier: '',
+            referenceType: 'collapsed',
             children: [{type: 'text', value: 'http://a'}]
           }
         ]
@@ -281,6 +284,8 @@ test('mdast -> markdown', (t) => {
           {
             type: 'linkReference',
             label: 'a',
+            identifier: '',
+            referenceType: 'full',
             children: [{type: 'text', value: 'http://a'}]
           }
         ]
@@ -299,6 +304,8 @@ test('mdast -> markdown', (t) => {
           {
             type: 'linkReference',
             label: 'http://a',
+            identifier: '',
+            referenceType: 'full',
             children: [{type: 'text', value: 'a'}]
           }
         ]
@@ -331,7 +338,15 @@ test('mdast -> markdown', (t) => {
     toMarkdown(
       {
         type: 'paragraph',
-        children: [{type: 'imageReference', label: 'http://a', alt: 'a'}]
+        children: [
+          {
+            type: 'imageReference',
+            label: 'http://a',
+            identifier: '',
+            referenceType: 'full',
+            alt: 'a'
+          }
+        ]
       },
       {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
@@ -343,7 +358,15 @@ test('mdast -> markdown', (t) => {
     toMarkdown(
       {
         type: 'paragraph',
-        children: [{type: 'imageReference', label: 'a', alt: 'http://a'}]
+        children: [
+          {
+            type: 'imageReference',
+            label: 'a',
+            identifier: '',
+            referenceType: 'full',
+            alt: 'http://a'
+          }
+        ]
       },
       {extensions: [gfmAutolinkLiteralToMarkdown]}
     ),
@@ -369,16 +392,18 @@ test('mdast -> markdown', (t) => {
   while (++index < files.length) {
     const d = files[index]
     const stem = path.basename(d, '.md')
-    let actual = toHtml(
-      toHast(
-        fromMarkdown(fs.readFileSync(path.join('test', d)), {
-          extensions: [gfmAutolinkLiteral],
-          mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
-        }),
-        {allowDangerousHtml: true}
-      ),
-      {allowDangerousHtml: true, entities: {useNamedReferences: true}}
+    const hast = toHast(
+      fromMarkdown(fs.readFileSync(path.join('test', d)), {
+        extensions: [gfmAutolinkLiteral],
+        mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
+      }),
+      {allowDangerousHtml: true}
     )
+    assert(hast && hast.type === 'root', 'expected root')
+    let actual = toHtml(hast, {
+      allowDangerousHtml: true,
+      entities: {useNamedReferences: true}
+    })
     const expected = String(fs.readFileSync(path.join('test', stem + '.html')))
 
     if (actual.charCodeAt(actual.length - 1) !== 10) {
