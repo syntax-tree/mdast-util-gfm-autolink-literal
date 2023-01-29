@@ -8,7 +8,7 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[mdast][] extensions to parse and serialize [GFM][] autolinks.
+[mdast][] extensions to parse and serialize [GFM][] autolink literals.
 
 ## Contents
 
@@ -19,6 +19,8 @@
 *   [API](#api)
     *   [`gfmAutolinkLiteralFromMarkdown`](#gfmautolinkliteralfrommarkdown)
     *   [`gfmAutolinkLiteralToMarkdown`](#gfmautolinkliteraltomarkdown)
+*   [HTML](#html)
+*   [Syntax](#syntax)
 *   [Syntax tree](#syntax-tree)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
@@ -28,12 +30,16 @@
 
 ## What is this?
 
-This package contains extensions that add support for the autolink syntax
-enabled by GFM to [`mdast-util-from-markdown`][mdast-util-from-markdown] and
-[`mdast-util-to-markdown`][mdast-util-to-markdown].
+This package contains two extensions that add support for GFM autolink literals
+syntax in markdown to [mdast][].
+These extensions plug into
+[`mdast-util-from-markdown`][mdast-util-from-markdown] (to support parsing
+GFM autolinks in markdown into a syntax tree) and
+[`mdast-util-to-markdown`][mdast-util-to-markdown] (to support serializing
+GFM autolinks in syntax trees to markdown).
 
 GitHub employs different algorithms to autolink: one at parse time and one at
-transform time (similar to how @mentions are done at transform time).
+transform time (similar to how `@mentions` are done at transform time).
 This difference can be observed because character references and escapes are
 handled differently.
 But also because issues/PRs/comments omit (perhaps by accident?) the second
@@ -47,14 +53,22 @@ perform the second algorithm, and as they are combined, both are done.
 
 ## When to use this
 
-These tools are all rather low-level.
-In most cases, you’d want to use [`remark-gfm`][remark-gfm] with remark instead.
+You can use these extensions when you are working with
+`mdast-util-from-markdown` and `mdast-util-to-markdown` already.
+
+When working with `mdast-util-from-markdown`, you must combine this package
+with
+[`micromark-extension-gfm-autolink-literal`][extension].
+
+When you don’t need a syntax tree, you can use [`micromark`][micromark]
+directly with `micromark-extension-gfm-autolink-literal`.
 
 When you are working with syntax trees and want all of GFM, use
 [`mdast-util-gfm`][mdast-util-gfm] instead.
 
-When working with `mdast-util-from-markdown`, you must combine this package with
-[`micromark-extension-gfm-autolink-literal`][extension].
+All these packages are used [`remark-gfm`][remark-gfm], which
+focusses on making it easier to transform content by abstracting these
+internals away.
 
 This utility does not handle how markdown is turned to HTML.
 That’s done by [`mdast-util-to-hast`][mdast-util-to-hast].
@@ -62,7 +76,7 @@ That’s done by [`mdast-util-to-hast`][mdast-util-to-hast].
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
+In Node.js (version 14.14+ and 16.0+), install with [npm][]:
 
 ```sh
 npm install mdast-util-gfm-autolink-literal
@@ -155,35 +169,47 @@ console.log(out)
 
 ## API
 
-This package exports the identifiers `gfmAutolinkLiteralFromMarkdown` and
-`gfmAutolinkLiteralToMarkdown`.
+This package exports the identifiers
+[`gfmAutolinkLiteralFromMarkdown`][api-gfmautolinkliteralfrommarkdown] and
+[`gfmAutolinkLiteralToMarkdown`][api-gfmautolinkliteraltomarkdown].
 There is no default export.
 
 ### `gfmAutolinkLiteralFromMarkdown`
 
-Extension for [`mdast-util-from-markdown`][mdast-util-from-markdown].
+Extension for [`mdast-util-from-markdown`][mdast-util-from-markdown] to enable
+GFM autolink literals ([`FromMarkdownExtension`][frommarkdownextension]).
 
 ### `gfmAutolinkLiteralToMarkdown`
 
-Extension for [`mdast-util-to-markdown`][mdast-util-to-markdown].
+Extension for [`mdast-util-to-markdown`][mdast-util-to-markdown] to enable
+GFM autolink literals ([`ToMarkdownExtension`][tomarkdownextension]).
+
+## HTML
+
+This utility does not handle how markdown is turned to HTML.
+That’s done by [`mdast-util-to-hast`][mdast-util-to-hast].
+
+## Syntax
+
+See [Syntax in `micromark-extension-gfm-autolink-literal`][syntax].
 
 ## Syntax tree
 
 There are no interfaces added to **[mdast][]** by this utility, as it reuses
-the existing [**Link**][dfn-link] interface.
+the existing **[Link][dfn-link]** interface.
 
 ## Types
 
 This package is fully typed with [TypeScript][].
 It does not export additional types.
 
-The `Link` node type is supported in `@types/mdast` by default.
+The `Link` type of the mdast nodes is exposed from `@types/mdast`.
 
 ## Compatibility
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+As of now, that is Node.js 14.14+ and 16.0+.
 Our projects sometimes work with older versions, but this is not guaranteed.
 
 This plugin works with `mdast-util-from-markdown` version 1+ and
@@ -273,8 +299,20 @@ abide by its terms.
 
 [remark-gfm]: https://github.com/remarkjs/remark-gfm
 
+[micromark]: https://github.com/micromark/micromark
+
 [extension]: https://github.com/micromark/micromark-extension-gfm-autolink-literal
+
+[syntax]: https://github.com/micromark/micromark-extension-gfm-autolink-literal#syntax
 
 [gfm]: https://github.github.com/gfm/
 
 [dfn-link]: https://github.com/syntax-tree/mdast#link
+
+[frommarkdownextension]: https://github.com/syntax-tree/mdast-util-from-markdown#extension
+
+[tomarkdownextension]: https://github.com/syntax-tree/mdast-util-to-markdown#options
+
+[api-gfmautolinkliteralfrommarkdown]: #gfmautolinkliteralfrommarkdown
+
+[api-gfmautolinkliteraltomarkdown]: #gfmautolinkliteraltomarkdown
