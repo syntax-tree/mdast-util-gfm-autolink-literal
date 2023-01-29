@@ -10,8 +10,17 @@ import {
   gfmAutolinkLiteralFromMarkdown,
   gfmAutolinkLiteralToMarkdown
 } from '../index.js'
+import * as mod from '../index.js'
 
-test('markdown -> mdast', () => {
+test('core', () => {
+  assert.deepEqual(
+    Object.keys(mod).sort(),
+    ['gfmAutolinkLiteralFromMarkdown', 'gfmAutolinkLiteralToMarkdown'],
+    'should expose the public api'
+  )
+})
+
+test('gfmAutolinkLiteralFromMarkdown', () => {
   assert.deepEqual(
     fromMarkdown(
       'www.example.com, https://example.com, and contact@example.com.',
@@ -168,7 +177,7 @@ test('markdown -> mdast', () => {
   )
 })
 
-test('mdast -> markdown', async () => {
+test('gfmAutolinkLiteralToMarkdown', async () => {
   assert.deepEqual(
     toMarkdown(
       {
