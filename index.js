@@ -1,5 +1,6 @@
 /**
  * @typedef {import('mdast').Link} Link
+ * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
  * @typedef {import('mdast-util-from-markdown').Extension} FromMarkdownExtension
  * @typedef {import('mdast-util-from-markdown').Transform} FromMarkdownTransform
  * @typedef {import('mdast-util-from-markdown').Handle} FromMarkdownHandle
@@ -41,6 +42,7 @@ export const gfmAutolinkLiteralToMarkdown = {
       before: '[+\\-.\\w]',
       after: '[\\-.\\w]',
       inConstruct,
+      // @ts-expect-error: to do: use map.
       notInConstruct
     },
     {
@@ -48,40 +50,66 @@ export const gfmAutolinkLiteralToMarkdown = {
       before: '[Ww]',
       after: '[\\-.\\w]',
       inConstruct,
+      // @ts-expect-error: to do: use map.
       notInConstruct
     },
-    {character: ':', before: '[ps]', after: '\\/', inConstruct, notInConstruct}
+    {
+      character: ':',
+      before: '[ps]',
+      after: '\\/',
+      inConstruct,
+      // @ts-expect-error: to do: use map.
+      notInConstruct
+    }
   ]
 }
 
-/** @type {FromMarkdownHandle} */
+/**
+ * @this {CompileContext}
+ * @type {FromMarkdownHandle}
+ */
 function enterLiteralAutolink(token) {
   this.enter({type: 'link', title: null, url: '', children: []}, token)
 }
 
-/** @type {FromMarkdownHandle} */
+/**
+ * @this {CompileContext}
+ * @type {FromMarkdownHandle}
+ */
 function enterLiteralAutolinkValue(token) {
   this.config.enter.autolinkProtocol.call(this, token)
 }
 
-/** @type {FromMarkdownHandle} */
+/**
+ * @this {CompileContext}
+ * @type {FromMarkdownHandle}
+ */
 function exitLiteralAutolinkHttp(token) {
   this.config.exit.autolinkProtocol.call(this, token)
 }
 
-/** @type {FromMarkdownHandle} */
+/**
+ * @this {CompileContext}
+ * @type {FromMarkdownHandle}
+ */
 function exitLiteralAutolinkWww(token) {
   this.config.exit.data.call(this, token)
   const node = /** @type {Link} */ (this.stack[this.stack.length - 1])
   node.url = 'http://' + this.sliceSerialize(token)
 }
 
-/** @type {FromMarkdownHandle} */
+/**
+ * @this {CompileContext}
+ * @type {FromMarkdownHandle}
+ */
 function exitLiteralAutolinkEmail(token) {
   this.config.exit.autolinkEmail.call(this, token)
 }
 
-/** @type {FromMarkdownHandle} */
+/**
+ * @this {CompileContext}
+ * @type {FromMarkdownHandle}
+ */
 function exitLiteralAutolink(token) {
   this.exit(token)
 }
