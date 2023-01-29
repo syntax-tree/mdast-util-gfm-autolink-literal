@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict'
-import fs from 'node:fs'
-import path from 'node:path'
+import fs from 'node:fs/promises'
 import test from 'tape'
 import {toHtml} from 'hast-util-to-html'
 import {toHast} from 'mdast-util-to-hast'
@@ -171,7 +170,7 @@ test('markdown -> mdast', (t) => {
   t.end()
 })
 
-test('mdast -> markdown', (t) => {
+test('mdast -> markdown', async (t) => {
   t.deepEqual(
     toMarkdown(
       {
@@ -386,14 +385,25 @@ test('mdast -> markdown', (t) => {
     'should not escape colons in image (resource) labels'
   )
 
-  const files = fs.readdirSync('test').filter((d) => path.extname(d) === '.md')
+  const root = new URL('./', import.meta.url)
+
+  const files = await fs.readdir(root)
   let index = -1
 
   while (++index < files.length) {
-    const d = files[index]
-    const stem = path.basename(d, '.md')
+    const file = files[index]
+
+    if (!/\.md$/.test(file)) continue
+
+    const stem = file.split('.').slice(0, -1).join('.')
+    const inputUrl = new URL(file, root)
+    const expectedUrl = new URL(stem + '.html', root)
+
+    const input = await fs.readFile(inputUrl)
+    const expected = String(await fs.readFile(expectedUrl))
+
     const hast = toHast(
-      fromMarkdown(fs.readFileSync(path.join('test', d)), {
+      fromMarkdown(input, {
         extensions: [gfmAutolinkLiteral],
         mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
       }),
@@ -404,7 +414,6 @@ test('mdast -> markdown', (t) => {
       allowDangerousHtml: true,
       entities: {useNamedReferences: true}
     })
-    const expected = String(fs.readFileSync(path.join('test', stem + '.html')))
 
     if (actual.charCodeAt(actual.length - 1) !== 10) {
       actual += '\n'
