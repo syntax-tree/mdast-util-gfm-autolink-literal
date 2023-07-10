@@ -453,7 +453,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
 })
 
 test('fixtures', async function (t) {
-  const root = new URL('./', import.meta.url)
+  const root = new URL('fixture/', import.meta.url)
 
   const files = await fs.readdir(root)
   let index = -1
