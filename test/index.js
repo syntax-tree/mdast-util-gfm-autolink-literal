@@ -20,14 +20,14 @@ test('core', async function (t) {
   })
 })
 
-test('gfmAutolinkLiteralFromMarkdown', async function (t) {
+test('gfmAutolinkLiteralFromMarkdown()', async function (t) {
   await t.test('should support autolink literals', async function () {
     assert.deepEqual(
       fromMarkdown(
         'www.example.com, https://example.com, and contact@example.com.',
         {
           extensions: [gfmAutolinkLiteral()],
-          mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
+          mdastExtensions: [gfmAutolinkLiteralFromMarkdown()]
         }
       ),
       {
@@ -136,7 +136,7 @@ test('gfmAutolinkLiteralFromMarkdown', async function (t) {
     assert.deepEqual(
       fromMarkdown('[https://google.com](https://google.com)', {
         extensions: [gfmAutolinkLiteral()],
-        mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
+        mdastExtensions: [gfmAutolinkLiteralFromMarkdown()]
       }),
       {
         type: 'root',
@@ -179,7 +179,7 @@ test('gfmAutolinkLiteralFromMarkdown', async function (t) {
   })
 })
 
-test('gfmAutolinkLiteralToMarkdown', async function (t) {
+test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test('should not serialize autolink literals', async function () {
     assert.deepEqual(
       toMarkdown(
@@ -196,7 +196,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
             {type: 'text', value: ' c.'}
           ]
         },
-        {extensions: [gfmAutolinkLiteralToMarkdown]}
+        {extensions: [gfmAutolinkLiteralToMarkdown()]}
       ),
       'a <contact@example.com> c.\n'
     )
@@ -208,7 +208,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
       assert.deepEqual(
         toMarkdown(
           {type: 'paragraph', children: [{type: 'text', value: 'a b@c.d'}]},
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         'a b\\@c.d\n'
       )
@@ -221,7 +221,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
       assert.deepEqual(
         toMarkdown(
           {type: 'paragraph', children: [{type: 'text', value: 'a @c'}]},
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         'a @c\n'
       )
@@ -234,7 +234,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
       assert.deepEqual(
         toMarkdown(
           {type: 'paragraph', children: [{type: 'text', value: 'a www.b.c'}]},
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         'a www\\.b.c\n'
       )
@@ -247,7 +247,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
       assert.deepEqual(
         toMarkdown(
           {type: 'paragraph', children: [{type: 'text', value: 'a.b'}]},
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         'a.b\n'
       )
@@ -260,7 +260,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
       assert.deepEqual(
         toMarkdown(
           {type: 'paragraph', children: [{type: 'text', value: 'https:/'}]},
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         'https\\:/\n'
       )
@@ -273,7 +273,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
       assert.deepEqual(
         toMarkdown(
           {type: 'paragraph', children: [{type: 'text', value: 'https:a'}]},
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         'https:a\n'
       )
@@ -286,7 +286,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
       assert.deepEqual(
         toMarkdown(
           {type: 'definition', label: 'http://a', identifier: '', url: ''},
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         '[http://a]: <>\n'
       )
@@ -310,7 +310,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
               }
             ]
           },
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         '[http://a][]\n'
       )
@@ -334,7 +334,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
               }
             ]
           },
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         '[http://a][a]\n'
       )
@@ -358,7 +358,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
               }
             ]
           },
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         '[a][http://a]\n'
       )
@@ -380,7 +380,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
               }
             ]
           },
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         '[a](http://a)\n'
       )
@@ -404,7 +404,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
               }
             ]
           },
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         '![a][http://a]\n'
       )
@@ -428,7 +428,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
               }
             ]
           },
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         '![http://a][a]\n'
       )
@@ -444,7 +444,7 @@ test('gfmAutolinkLiteralToMarkdown', async function (t) {
             type: 'paragraph',
             children: [{type: 'image', url: 'http://a', alt: 'a'}]
           },
-          {extensions: [gfmAutolinkLiteralToMarkdown]}
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
         ),
         '![a](http://a)\n'
       )
@@ -474,7 +474,7 @@ test('fixtures', async function (t) {
 
       const mdast = fromMarkdown(input, {
         extensions: [gfmAutolinkLiteral()],
-        mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
+        mdastExtensions: [gfmAutolinkLiteralFromMarkdown()]
       })
 
       // @ts-expect-error: to do, remove when `to-hast` is released.

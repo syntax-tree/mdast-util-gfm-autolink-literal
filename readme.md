@@ -17,8 +17,8 @@
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
-    *   [`gfmAutolinkLiteralFromMarkdown`](#gfmautolinkliteralfrommarkdown)
-    *   [`gfmAutolinkLiteralToMarkdown`](#gfmautolinkliteraltomarkdown)
+    *   [`gfmAutolinkLiteralFromMarkdown()`](#gfmautolinkliteralfrommarkdown)
+    *   [`gfmAutolinkLiteralToMarkdown()`](#gfmautolinkliteraltomarkdown)
 *   [HTML](#html)
 *   [Syntax](#syntax)
 *   [Syntax tree](#syntax-tree)
@@ -120,12 +120,12 @@ const doc = await fs.readFile('example.md')
 
 const tree = fromMarkdown(doc, {
   extensions: [gfmAutolinkLiteral()],
-  mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
+  mdastExtensions: [gfmAutolinkLiteralFromMarkdown()]
 })
 
 console.log(tree)
 
-const out = toMarkdown(tree, {extensions: [gfmAutolinkLiteralToMarkdown]})
+const out = toMarkdown(tree, {extensions: [gfmAutolinkLiteralToMarkdown()]})
 
 console.log(out)
 ```
@@ -177,15 +177,25 @@ This package exports the identifiers
 [`gfmAutolinkLiteralToMarkdown`][api-gfm-autolink-literal-to-markdown].
 There is no default export.
 
-### `gfmAutolinkLiteralFromMarkdown`
+### `gfmAutolinkLiteralFromMarkdown()`
 
-Extension for [`mdast-util-from-markdown`][mdast-util-from-markdown] to enable
-GFM autolink literals ([`FromMarkdownExtension`][from-markdown-extension]).
+Create an extension for [`mdast-util-from-markdown`][mdast-util-from-markdown]
+to enable GFM autolink literals in markdown.
 
-### `gfmAutolinkLiteralToMarkdown`
+###### Returns
 
-Extension for [`mdast-util-to-markdown`][mdast-util-to-markdown] to enable
-GFM autolink literals ([`ToMarkdownExtension`][to-markdown-extension]).
+Extension for `mdast-util-to-markdown` to enable GFM autolink literals
+([`FromMarkdownExtension`][from-markdown-extension]).
+
+### `gfmAutolinkLiteralToMarkdown()`
+
+Create an extension for [`mdast-util-to-markdown`][mdast-util-to-markdown] to
+enable GFM autolink literals in markdown.
+
+###### Returns
+
+Extension for `mdast-util-to-markdown` to enable GFM autolink literals
+([`ToMarkdownExtension`][to-markdown-extension]).
 
 ## HTML
 
