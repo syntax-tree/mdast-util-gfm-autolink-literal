@@ -85,14 +85,14 @@ npm install mdast-util-gfm-autolink-literal
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {gfmAutolinkLiteralFromMarkdown, gfmAutolinkLiteralToMarkdown} from 'https://esm.sh/mdast-util-gfm-autolink-literal@1'
+import {gfmAutolinkLiteralFromMarkdown, gfmAutolinkLiteralToMarkdown} from 'https://esm.sh/mdast-util-gfm-autolink-literal@2'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {gfmAutolinkLiteralFromMarkdown, gfmAutolinkLiteralToMarkdown} from 'https://esm.sh/mdast-util-gfm-autolink-literal@1?bundle'
+  import {gfmAutolinkLiteralFromMarkdown, gfmAutolinkLiteralToMarkdown} from 'https://esm.sh/mdast-util-gfm-autolink-literal@2?bundle'
 </script>
 ```
 
@@ -228,7 +228,7 @@ Node.
 This means we try to keep the current release line,
 `mdast-util-gfm-autolink-literal@^2`, compatible with Node.js 16.
 
-This plugin works with `mdast-util-from-markdown` version 2+ and
+This utility works with `mdast-util-from-markdown` version 2+ and
 `mdast-util-to-markdown` version 2+.
 
 ## Related
