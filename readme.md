@@ -76,7 +76,7 @@ That’s done by [`mdast-util-to-hast`][mdast-util-to-hast].
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 14.14+ and 16.0+), install with [npm][]:
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install mdast-util-gfm-autolink-literal
@@ -108,15 +108,18 @@ www.example.com, https://example.com, and contact@example.com.
 
 ```js
 import fs from 'node:fs/promises'
-import {fromMarkdown} from 'mdast-util-from-markdown'
-import {toMarkdown} from 'mdast-util-to-markdown'
 import {gfmAutolinkLiteral} from 'micromark-extension-gfm-autolink-literal'
-import {gfmAutolinkLiteralFromMarkdown, gfmAutolinkLiteralToMarkdown} from 'mdast-util-gfm-autolink-literal'
+import {fromMarkdown} from 'mdast-util-from-markdown'
+import {
+  gfmAutolinkLiteralFromMarkdown,
+  gfmAutolinkLiteralToMarkdown
+} from 'mdast-util-gfm-autolink-literal'
+import {toMarkdown} from 'mdast-util-to-markdown'
 
 const doc = await fs.readFile('example.md')
 
 const tree = fromMarkdown(doc, {
-  extensions: [gfmAutolinkLiteral],
+  extensions: [gfmAutolinkLiteral()],
   mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
 })
 
@@ -170,19 +173,19 @@ console.log(out)
 ## API
 
 This package exports the identifiers
-[`gfmAutolinkLiteralFromMarkdown`][api-gfmautolinkliteralfrommarkdown] and
-[`gfmAutolinkLiteralToMarkdown`][api-gfmautolinkliteraltomarkdown].
+[`gfmAutolinkLiteralFromMarkdown`][api-gfm-autolink-literal-from-markdown] and
+[`gfmAutolinkLiteralToMarkdown`][api-gfm-autolink-literal-to-markdown].
 There is no default export.
 
 ### `gfmAutolinkLiteralFromMarkdown`
 
 Extension for [`mdast-util-from-markdown`][mdast-util-from-markdown] to enable
-GFM autolink literals ([`FromMarkdownExtension`][frommarkdownextension]).
+GFM autolink literals ([`FromMarkdownExtension`][from-markdown-extension]).
 
 ### `gfmAutolinkLiteralToMarkdown`
 
 Extension for [`mdast-util-to-markdown`][mdast-util-to-markdown] to enable
-GFM autolink literals ([`ToMarkdownExtension`][tomarkdownextension]).
+GFM autolink literals ([`ToMarkdownExtension`][to-markdown-extension]).
 
 ## HTML
 
@@ -207,10 +210,13 @@ The `Link` type of the mdast nodes is exposed from `@types/mdast`.
 
 ## Compatibility
 
-Projects maintained by the unified collective are compatible with all maintained
+Projects maintained by the unified collective are compatible with maintained
 versions of Node.js.
-As of now, that is Node.js 14.14+ and 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line,
+`mdast-util-gfm-autolink-literal@^1`, compatible with Node.js 12.
 
 This plugin works with `mdast-util-from-markdown` version 1+ and
 `mdast-util-to-markdown` version 1+.
@@ -253,9 +259,9 @@ abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/mdast-util-gfm-autolink-literal
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/mdast-util-gfm-autolink-literal.svg
+[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size&query=$.size.compressedSize&url=https://deno.bundlejs.com/?q=mdast-util-gfm-autolink-literal
 
-[size]: https://bundlephobia.com/result?p=mdast-util-gfm-autolink-literal
+[size]: https://bundlejs.com/?q=mdast-util-gfm-autolink-literal
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -309,10 +315,10 @@ abide by its terms.
 
 [dfn-link]: https://github.com/syntax-tree/mdast#link
 
-[frommarkdownextension]: https://github.com/syntax-tree/mdast-util-from-markdown#extension
+[from-markdown-extension]: https://github.com/syntax-tree/mdast-util-from-markdown#extension
 
-[tomarkdownextension]: https://github.com/syntax-tree/mdast-util-to-markdown#options
+[to-markdown-extension]: https://github.com/syntax-tree/mdast-util-to-markdown#options
 
-[api-gfmautolinkliteralfrommarkdown]: #gfmautolinkliteralfrommarkdown
+[api-gfm-autolink-literal-from-markdown]: #gfmautolinkliteralfrommarkdown
 
-[api-gfmautolinkliteraltomarkdown]: #gfmautolinkliteraltomarkdown
+[api-gfm-autolink-literal-to-markdown]: #gfmautolinkliteraltomarkdown
