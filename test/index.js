@@ -25,7 +25,7 @@ test('gfmAutolinkLiteralFromMarkdown', () => {
     fromMarkdown(
       'www.example.com, https://example.com, and contact@example.com.',
       {
-        extensions: [gfmAutolinkLiteral],
+        extensions: [gfmAutolinkLiteral()],
         mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
       }
     ),
@@ -133,7 +133,7 @@ test('gfmAutolinkLiteralFromMarkdown', () => {
 
   assert.deepEqual(
     fromMarkdown('[https://google.com](https://google.com)', {
-      extensions: [gfmAutolinkLiteral],
+      extensions: [gfmAutolinkLiteral()],
       mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
     }),
     {
@@ -409,14 +409,14 @@ test('gfmAutolinkLiteralToMarkdown', async () => {
     const input = await fs.readFile(inputUrl)
     const expected = String(await fs.readFile(expectedUrl))
 
-    const hast = toHast(
-      fromMarkdown(input, {
-        extensions: [gfmAutolinkLiteral],
-        mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
-      }),
-      {allowDangerousHtml: true}
-    )
+    const mdast = fromMarkdown(input, {
+      extensions: [gfmAutolinkLiteral()],
+      mdastExtensions: [gfmAutolinkLiteralFromMarkdown]
+    })
+
+    const hast = toHast(mdast, {allowDangerousHtml: true})
     assert(hast && hast.type === 'root', 'expected root')
+
     let actual = toHtml(hast, {
       allowDangerousHtml: true,
       entities: {useNamedReferences: true}
