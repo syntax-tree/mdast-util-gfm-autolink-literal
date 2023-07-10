@@ -4,19 +4,19 @@ import test from 'node:test'
 import {toHtml} from 'hast-util-to-html'
 import {toHast} from 'mdast-util-to-hast'
 import {fromMarkdown} from 'mdast-util-from-markdown'
-import {toMarkdown} from 'mdast-util-to-markdown'
-import {gfmAutolinkLiteral} from 'micromark-extension-gfm-autolink-literal'
 import {
   gfmAutolinkLiteralFromMarkdown,
   gfmAutolinkLiteralToMarkdown
-} from '../index.js'
+} from 'mdast-util-gfm-autolink-literal'
+import {toMarkdown} from 'mdast-util-to-markdown'
+import {gfmAutolinkLiteral} from 'micromark-extension-gfm-autolink-literal'
 
 test('core', async function (t) {
   await t.test('should expose the public api', async function () {
-    assert.deepEqual(Object.keys(await import('../index.js')).sort(), [
-      'gfmAutolinkLiteralFromMarkdown',
-      'gfmAutolinkLiteralToMarkdown'
-    ])
+    assert.deepEqual(
+      Object.keys(await import('mdast-util-gfm-autolink-literal')).sort(),
+      ['gfmAutolinkLiteralFromMarkdown', 'gfmAutolinkLiteralToMarkdown']
+    )
   })
 })
 
