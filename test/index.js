@@ -477,10 +477,10 @@ test('fixtures', async function (t) {
         mdastExtensions: [gfmAutolinkLiteralFromMarkdown()]
       })
 
-      // @ts-expect-error: to do, remove when `to-hast` is released.
       const hast = toHast(mdast, {allowDangerousHtml: true})
       assert(hast && hast.type === 'root', 'expected root')
 
+      // @ts-expect-error: to do, remove when `to-html` is released.
       let actual = toHtml(hast, {
         allowDangerousHtml: true,
         entities: {useNamedReferences: true}
