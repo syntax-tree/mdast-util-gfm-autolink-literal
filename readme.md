@@ -12,21 +12,21 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When to use this](#when-to-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`gfmAutolinkLiteralFromMarkdown()`](#gfmautolinkliteralfrommarkdown)
-    *   [`gfmAutolinkLiteralToMarkdown()`](#gfmautolinkliteraltomarkdown)
-*   [HTML](#html)
-*   [Syntax](#syntax)
-*   [Syntax tree](#syntax-tree)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When to use this](#when-to-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`gfmAutolinkLiteralFromMarkdown()`](#gfmautolinkliteralfrommarkdown)
+  * [`gfmAutolinkLiteralToMarkdown()`](#gfmautolinkliteraltomarkdown)
+* [HTML](#html)
+* [Syntax](#syntax)
+* [Syntax tree](#syntax-tree)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Related](#related)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -233,13 +233,13 @@ This utility works with `mdast-util-from-markdown` version 2+ and
 
 ## Related
 
-*   [`remarkjs/remark-gfm`][remark-gfm]
-    — remark plugin to support GFM
-*   [`syntax-tree/mdast-util-gfm`][mdast-util-gfm]
-    — same but all of GFM (autolink literals, footnotes, strikethrough, tables,
-    tasklists)
-*   [`micromark/micromark-extension-gfm-autolink-literal`][extension]
-    — micromark extension to parse GFM autolink literals
+* [`remarkjs/remark-gfm`][remark-gfm]
+  — remark plugin to support GFM
+* [`syntax-tree/mdast-util-gfm`][mdast-util-gfm]
+  — same but all of GFM (autolink literals, footnotes, strikethrough, tables,
+  tasklists)
+* [`micromark/micromark-extension-gfm-autolink-literal`][extension]
+  — micromark extension to parse GFM autolink literals
 
 ## Contribute
 
