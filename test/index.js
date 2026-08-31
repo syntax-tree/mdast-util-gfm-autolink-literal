@@ -177,6 +177,49 @@ test('gfmAutolinkLiteralFromMarkdown()', async function (t) {
       }
     )
   })
+
+  await t.test(
+    'should merge adjacent text nodes left after extracting a literal autolink',
+    async function () {
+      const options = {
+        extensions: [gfmAutolinkLiteral()],
+        mdastExtensions: [gfmAutolinkLiteralFromMarkdown()]
+      }
+      const tree = fromMarkdown('[http://a.\n]', options)
+
+      assert(tree.children[0])
+      assert.equal(tree.children[0].type, 'paragraph')
+
+      /** @param {typeof tree.children[0]} node */
+      function compact(node) {
+        assert(node.type === 'paragraph')
+        return node.children.map(function (child) {
+          if (child.type === 'link') {
+            return {type: child.type, url: child.url}
+          }
+
+          assert.equal(child.type, 'text')
+          return {type: child.type, value: child.value}
+        })
+      }
+
+      const children = compact(tree.children[0])
+
+      assert.deepEqual(children, [
+        {type: 'text', value: '['},
+        {type: 'link', url: 'http://a'},
+        {type: 'text', value: '.\n]'}
+      ])
+
+      const roundTrip = fromMarkdown(
+        toMarkdown(tree, {extensions: [gfmAutolinkLiteralToMarkdown()]}),
+        options
+      )
+
+      assert(roundTrip.children[0])
+      assert.deepEqual(compact(roundTrip.children[0]), children)
+    }
+  )
 })
 
 test('gfmAutolinkLiteralToMarkdown()', async function (t) {
