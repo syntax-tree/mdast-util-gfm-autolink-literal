@@ -51,6 +51,10 @@ it can only perform the first algorithm.
 The tree extension `gfmAutolinkLiteralFromMarkdown` from this package can
 perform the second algorithm, and as they are combined, both are done.
 
+The transform also recognizes lowercase `mailto:` and `xmpp:` literals.
+
+This includes decoded source forms and XMPP resources.
+
 ## When to use this
 
 You can use these extensions when you are working with
