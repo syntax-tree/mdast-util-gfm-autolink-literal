@@ -27,3 +27,21 @@ b/..@__.b.
 http://a.b/)))x
 
 http://a.b/(x)).
+
++a@b.c
+
+\+a@b.c
+
+\+a-@c.d
+
+\++@1c.d
+
+\_a@b.c
+
+x\_a@b.c
+
+\.a@b.c
+
+\-a@b.c
+
+\\a@b.c
