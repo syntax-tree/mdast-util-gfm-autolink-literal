@@ -181,7 +181,7 @@ test('gfmAutolinkLiteralFromMarkdown()', async function (t) {
 
 test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test('should not serialize autolink literals', async function () {
-    assert.deepEqual(
+    assert.equal(
       toMarkdown(
         {
           type: 'paragraph',
@@ -205,7 +205,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should escape at signs if they appear in what looks like an email',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {type: 'paragraph', children: [{type: 'text', value: 'a b@c.d'}]},
           {extensions: [gfmAutolinkLiteralToMarkdown()]}
@@ -218,7 +218,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should not escape at signs if they appear in what can’t be an email',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {type: 'paragraph', children: [{type: 'text', value: 'a @c'}]},
           {extensions: [gfmAutolinkLiteralToMarkdown()]}
@@ -231,7 +231,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should escape dots if they appear in what looks like a domain',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {type: 'paragraph', children: [{type: 'text', value: 'a www.b.c'}]},
           {extensions: [gfmAutolinkLiteralToMarkdown()]}
@@ -244,7 +244,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should not escape dots if they appear in what can’t be a domain',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {type: 'paragraph', children: [{type: 'text', value: 'a.b'}]},
           {extensions: [gfmAutolinkLiteralToMarkdown()]}
@@ -257,7 +257,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should escape colons if they appear in what looks like a http protocol',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {type: 'paragraph', children: [{type: 'text', value: 'https:/'}]},
           {extensions: [gfmAutolinkLiteralToMarkdown()]}
@@ -270,7 +270,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should not escape colons if they appear in what can’t be a http protocol',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {type: 'paragraph', children: [{type: 'text', value: 'https:a'}]},
           {extensions: [gfmAutolinkLiteralToMarkdown()]}
@@ -283,7 +283,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should not escape colons in definition labels',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {type: 'definition', label: 'http://a', identifier: '', url: ''},
           {extensions: [gfmAutolinkLiteralToMarkdown()]}
@@ -296,7 +296,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should not escape colons in link (reference) labels (shortcut)',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {
             type: 'paragraph',
@@ -320,7 +320,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should not escape colons in link (reference) labels (text)',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {
             type: 'paragraph',
@@ -344,7 +344,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should not escape colons in link (reference) labels (label)',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {
             type: 'paragraph',
@@ -368,7 +368,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should not escape colons in link (resource) labels',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {
             type: 'paragraph',
@@ -390,7 +390,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should not escape colons in image (reference) labels (label)',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {
             type: 'paragraph',
@@ -414,7 +414,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should not escape colons in image (reference) labels (alt)',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {
             type: 'paragraph',
@@ -438,7 +438,7 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   await t.test(
     'should not escape colons in image (resource) labels',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {
             type: 'paragraph',
@@ -478,7 +478,7 @@ test('fixtures', async function (t) {
       })
 
       const hast = toHast(mdast, {allowDangerousHtml: true})
-      assert(hast && hast.type === 'root', 'expected root')
+      assert.equal(hast.type, 'root')
 
       let actual = toHtml(hast, {
         allowDangerousHtml: true,
@@ -489,7 +489,7 @@ test('fixtures', async function (t) {
         actual += '\n'
       }
 
-      assert.deepEqual(actual, expected)
+      assert.equal(actual, expected)
     })
   }
 })

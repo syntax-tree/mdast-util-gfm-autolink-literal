@@ -257,78 +257,78 @@ abide by its terms.
 
 <!-- Definitions -->
 
-[build-badge]: https://github.com/syntax-tree/mdast-util-gfm-autolink-literal/workflows/main/badge.svg
+[api-gfm-autolink-literal-from-markdown]: #gfmautolinkliteralfrommarkdown
 
-[build]: https://github.com/syntax-tree/mdast-util-gfm-autolink-literal/actions
+[api-gfm-autolink-literal-to-markdown]: #gfmautolinkliteraltomarkdown
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/syntax-tree/mdast-util-gfm-autolink-literal.svg
-
-[coverage]: https://codecov.io/github/syntax-tree/mdast-util-gfm-autolink-literal
-
-[downloads-badge]: https://img.shields.io/npm/dm/mdast-util-gfm-autolink-literal.svg
-
-[downloads]: https://www.npmjs.com/package/mdast-util-gfm-autolink-literal
-
-[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size&query=$.size.compressedSize&url=https://deno.bundlejs.com/?q=mdast-util-gfm-autolink-literal
-
-[size]: https://bundlejs.com/?q=mdast-util-gfm-autolink-literal
-
-[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+[author]: https://wooorm.com
 
 [backers-badge]: https://opencollective.com/unified/backers/badge.svg
 
-[collective]: https://opencollective.com/unified
+[build]: https://github.com/syntax-tree/mdast-util-gfm-autolink-literal/actions
 
-[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+[build-badge]: https://github.com/syntax-tree/mdast-util-gfm-autolink-literal/workflows/main/badge.svg
 
 [chat]: https://github.com/syntax-tree/unist/discussions
 
-[npm]: https://docs.npmjs.com/cli/install
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+
+[coc]: https://github.com/syntax-tree/.github/blob/HEAD/code-of-conduct.md
+
+[collective]: https://opencollective.com/unified
+
+[contributing]: https://github.com/syntax-tree/.github/blob/HEAD/contributing.md
+
+[coverage]: https://codecov.io/github/syntax-tree/mdast-util-gfm-autolink-literal
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/syntax-tree/mdast-util-gfm-autolink-literal.svg
+
+[dfn-link]: https://github.com/syntax-tree/mdast#link
+
+[downloads]: https://www.npmjs.com/package/mdast-util-gfm-autolink-literal
+
+[downloads-badge]: https://img.shields.io/npm/dm/mdast-util-gfm-autolink-literal.svg
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 [esmsh]: https://esm.sh
 
-[typescript]: https://www.typescriptlang.org
-
-[license]: license
-
-[author]: https://wooorm.com
-
-[health]: https://github.com/syntax-tree/.github
-
-[contributing]: https://github.com/syntax-tree/.github/blob/HEAD/contributing.md
-
-[support]: https://github.com/syntax-tree/.github/blob/HEAD/support.md
-
-[coc]: https://github.com/syntax-tree/.github/blob/HEAD/code-of-conduct.md
-
-[mdast]: https://github.com/syntax-tree/mdast
-
-[mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
-
-[mdast-util-from-markdown]: https://github.com/syntax-tree/mdast-util-from-markdown
-
-[mdast-util-to-markdown]: https://github.com/syntax-tree/mdast-util-to-markdown
-
-[mdast-util-to-hast]: https://github.com/syntax-tree/mdast-util-to-hast
-
-[remark-gfm]: https://github.com/remarkjs/remark-gfm
-
-[micromark]: https://github.com/micromark/micromark
-
 [extension]: https://github.com/micromark/micromark-extension-gfm-autolink-literal
-
-[syntax]: https://github.com/micromark/micromark-extension-gfm-autolink-literal#syntax
-
-[gfm]: https://github.github.com/gfm/
-
-[dfn-link]: https://github.com/syntax-tree/mdast#link
 
 [from-markdown-extension]: https://github.com/syntax-tree/mdast-util-from-markdown#extension
 
+[gfm]: https://github.github.com/gfm/
+
+[health]: https://github.com/syntax-tree/.github
+
+[license]: license
+
+[mdast]: https://github.com/syntax-tree/mdast
+
+[mdast-util-from-markdown]: https://github.com/syntax-tree/mdast-util-from-markdown
+
+[mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
+
+[mdast-util-to-hast]: https://github.com/syntax-tree/mdast-util-to-hast
+
+[mdast-util-to-markdown]: https://github.com/syntax-tree/mdast-util-to-markdown
+
+[micromark]: https://github.com/micromark/micromark
+
+[npm]: https://docs.npmjs.com/cli/install
+
+[remark-gfm]: https://github.com/remarkjs/remark-gfm
+
+[size]: https://bundlejs.com/?q=mdast-util-gfm-autolink-literal
+
+[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size&query=$.size.compressedSize&url=https://deno.bundlejs.com/?q=mdast-util-gfm-autolink-literal
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[support]: https://github.com/syntax-tree/.github/blob/HEAD/support.md
+
+[syntax]: https://github.com/micromark/micromark-extension-gfm-autolink-literal#syntax
+
 [to-markdown-extension]: https://github.com/syntax-tree/mdast-util-to-markdown#options
 
-[api-gfm-autolink-literal-from-markdown]: #gfmautolinkliteralfrommarkdown
-
-[api-gfm-autolink-literal-to-markdown]: #gfmautolinkliteraltomarkdown
+[typescript]: https://www.typescriptlang.org
