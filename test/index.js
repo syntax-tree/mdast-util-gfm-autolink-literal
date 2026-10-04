@@ -177,6 +177,27 @@ test('gfmAutolinkLiteralFromMarkdown()', async function (t) {
       }
     )
   })
+
+  await t.test('should merge text nodes', async function () {
+    const tree = fromMarkdown('[http://a.\n]', {
+      extensions: [gfmAutolinkLiteral()],
+      mdastExtensions: [gfmAutolinkLiteralFromMarkdown()]
+    })
+    const paragraph = tree.children[0]
+    assert.equal(paragraph.type, 'paragraph')
+
+    assert.deepEqual(paragraph.children, [
+      {type: 'text', value: '['},
+      {
+        type: 'link',
+        title: null,
+        url: 'http://a',
+        children: [{type: 'text', value: 'http://a', position: undefined}],
+        position: undefined
+      },
+      {type: 'text', value: '.\n]', position: undefined}
+    ])
+  })
 })
 
 test('gfmAutolinkLiteralToMarkdown()', async function (t) {
