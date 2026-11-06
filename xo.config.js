@@ -13,6 +13,7 @@ const xoConfig = [
       'jsdoc/check-indentation': 'off',
       'jsdoc/check-line-alignment': 'off',
       'jsdoc/require-asterisk-prefix': 'off',
+      'max-params': 'off',
       'no-shadow': 'off',
       'prefer-arrow-callback': 'off',
       'prefer-object-spread': 'off',
