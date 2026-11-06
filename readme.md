@@ -1,14 +1,12 @@
 # mdast-util-gfm-autolink-literal
 
-[![Build][build-badge]][build]
-[![Coverage][coverage-badge]][coverage]
-[![Downloads][downloads-badge]][downloads]
-[![Size][size-badge]][size]
-[![Sponsors][sponsors-badge]][collective]
-[![Backers][backers-badge]][collective]
-[![Chat][chat-badge]][chat]
+[![Build][badge-build-image]][badge-build-url]
+[![Coverage][badge-coverage-image]][badge-coverage-url]
+[![Downloads][badge-downloads-image]][badge-downloads-url]
+[![Size][badge-size-image]][badge-size-url]
 
-[mdast][] extensions to parse and serialize [GFM][] autolink literals.
+[mdast][github-mdast] extensions to parse and serialize
+[GFM][spec-gfm] autolink literals.
 
 ## Contents
 
@@ -31,12 +29,12 @@
 ## What is this?
 
 This package contains two extensions that add support for GFM autolink literals
-syntax in markdown to [mdast][].
+syntax in markdown to [mdast][github-mdast].
 These extensions plug into
-[`mdast-util-from-markdown`][mdast-util-from-markdown] (to support parsing
-GFM autolinks in markdown into a syntax tree) and
-[`mdast-util-to-markdown`][mdast-util-to-markdown] (to support serializing
-GFM autolinks in syntax trees to markdown).
+[`mdast-util-from-markdown`][github-mdast-util-from-markdown]
+(to support parsing GFM autolinks in markdown into a syntax tree) and
+[`mdast-util-to-markdown`][github-mdast-util-to-markdown]
+(to support serializing GFM autolinks in syntax trees to markdown).
 
 GitHub employs different algorithms to autolink: one at parse time and one at
 transform time (similar to how `@mentions` are done at transform time).
@@ -46,7 +44,8 @@ But also because issues/PRs/comments omit (perhaps by accident?) the second
 algorithm for `www.`, `http://`, and `https://` links (but not for email links).
 
 As the corresponding micromark extension
-[`micromark-extension-gfm-autolink-literal`][extension] is a syntax extension,
+[`micromark-extension-gfm-autolink-literal`][github-micromark-extension]
+is a syntax extension,
 it can only perform the first algorithm.
 The tree extension `gfmAutolinkLiteralFromMarkdown` from this package can
 perform the second algorithm, and as they are combined, both are done.
@@ -58,25 +57,25 @@ You can use these extensions when you are working with
 
 When working with `mdast-util-from-markdown`, you must combine this package
 with
-[`micromark-extension-gfm-autolink-literal`][extension].
+[`micromark-extension-gfm-autolink-literal`][github-micromark-extension].
 
-When you don’t need a syntax tree, you can use [`micromark`][micromark]
+When you don’t need a syntax tree, you can use [`micromark`][github-micromark]
 directly with `micromark-extension-gfm-autolink-literal`.
 
 When you are working with syntax trees and want all of GFM, use
-[`mdast-util-gfm`][mdast-util-gfm] instead.
+[`mdast-util-gfm`][github-mdast-util-gfm] instead.
 
-All these packages are used [`remark-gfm`][remark-gfm], which
+All these packages are used [`remark-gfm`][github-remark-gfm], which
 focusses on making it easier to transform content by abstracting these
 internals away.
 
 This utility does not handle how markdown is turned to HTML.
-That’s done by [`mdast-util-to-hast`][mdast-util-to-hast].
+That’s done by [`mdast-util-to-hast`][github-mdast-util-to-hast].
 
 ## Install
 
-This package is [ESM only][esm].
-In Node.js (version 16+), install with [npm][]:
+This package is [ESM only][github-gist-esm].
+In Node.js (version 16+), install with [npm][npmjs-install]:
 
 ```sh
 npm install mdast-util-gfm-autolink-literal
@@ -179,37 +178,40 @@ There is no default export.
 
 ### `gfmAutolinkLiteralFromMarkdown()`
 
-Create an extension for [`mdast-util-from-markdown`][mdast-util-from-markdown]
+Create an extension for
+[`mdast-util-from-markdown`][github-mdast-util-from-markdown]
 to enable GFM autolink literals in markdown.
 
 ###### Returns
 
 Extension for `mdast-util-to-markdown` to enable GFM autolink literals
-([`FromMarkdownExtension`][from-markdown-extension]).
+([`FromMarkdownExtension`][github-mdast-util-from-markdown-extension]).
 
 ### `gfmAutolinkLiteralToMarkdown()`
 
-Create an extension for [`mdast-util-to-markdown`][mdast-util-to-markdown] to
-enable GFM autolink literals in markdown.
+Create an extension for
+[`mdast-util-to-markdown`][github-mdast-util-to-markdown]
+to enable GFM autolink literals in markdown.
 
 ###### Returns
 
 Extension for `mdast-util-to-markdown` to enable GFM autolink literals
-([`ToMarkdownExtension`][to-markdown-extension]).
+([`ToMarkdownExtension`][github-mdast-util-to-markdown-options]).
 
 ## HTML
 
 This utility does not handle how markdown is turned to HTML.
-That’s done by [`mdast-util-to-hast`][mdast-util-to-hast].
+That’s done by [`mdast-util-to-hast`][github-mdast-util-to-hast].
 
 ## Syntax
 
-See [Syntax in `micromark-extension-gfm-autolink-literal`][syntax].
+See [Syntax in
+`micromark-extension-gfm-autolink-literal`][github-micromark-extension-syntax].
 
 ## Syntax tree
 
-There are no interfaces added to **[mdast][]** by this utility, as it reuses
-the existing **[Link][dfn-link]** interface.
+There are no interfaces added to **[mdast][github-mdast]** by this utility,
+as it reuses the existing **[Link][github-mdast-link]** interface.
 
 ## Types
 
@@ -233,27 +235,30 @@ This utility works with `mdast-util-from-markdown` version 2+ and
 
 ## Related
 
-* [`remarkjs/remark-gfm`][remark-gfm]
+* [`remark-gfm`][github-remark-gfm]
   — remark plugin to support GFM
-* [`syntax-tree/mdast-util-gfm`][mdast-util-gfm]
+* [`mdast-util-gfm`][github-mdast-util-gfm]
   — same but all of GFM (autolink literals, footnotes, strikethrough, tables,
   tasklists)
-* [`micromark/micromark-extension-gfm-autolink-literal`][extension]
+* [`micromark-extension-gfm-autolink-literal`][github-micromark-extension]
   — micromark extension to parse GFM autolink literals
 
 ## Contribute
 
-See [`contributing.md`][contributing] in [`syntax-tree/.github`][health] for
-ways to get started.
-See [`support.md`][support] for ways to get help.
+See
+[`contributing.md`][health-contributing]
+in
+[`syntax-tree/.github`][health]
+for ways to get started.
+See [`support.md`][health-support] for ways to get help.
 
-This project has a [code of conduct][coc].
+This project has a [code of conduct][health-coc].
 By interacting with this repository, organization, or community you agree to
 abide by its terms.
 
 ## License
 
-[MIT][license] © [Titus Wormer][author]
+[MIT][file-license] © [Titus Wormer][wooorm]
 
 <!-- Definitions -->
 
@@ -261,74 +266,64 @@ abide by its terms.
 
 [api-gfm-autolink-literal-to-markdown]: #gfmautolinkliteraltomarkdown
 
-[author]: https://wooorm.com
+[badge-build-image]: https://github.com/syntax-tree/mdast-util-gfm-autolink-literal/workflows/main/badge.svg
 
-[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+[badge-build-url]: https://github.com/syntax-tree/mdast-util-gfm-autolink-literal/actions
 
-[build]: https://github.com/syntax-tree/mdast-util-gfm-autolink-literal/actions
+[badge-coverage-image]: https://img.shields.io/codecov/c/github/syntax-tree/mdast-util-gfm-autolink-literal.svg
 
-[build-badge]: https://github.com/syntax-tree/mdast-util-gfm-autolink-literal/workflows/main/badge.svg
+[badge-coverage-url]: https://codecov.io/github/syntax-tree/mdast-util-gfm-autolink-literal
 
-[chat]: https://github.com/syntax-tree/unist/discussions
+[badge-downloads-image]: https://img.shields.io/npm/dm/mdast-util-gfm-autolink-literal.svg
 
-[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+[badge-downloads-url]: https://www.npmjs.com/package/mdast-util-gfm-autolink-literal
 
-[coc]: https://github.com/syntax-tree/.github/blob/HEAD/code-of-conduct.md
+[badge-size-image]: https://img.shields.io/bundlejs/size/mdast-util-gfm-autolink-literal
 
-[collective]: https://opencollective.com/unified
-
-[contributing]: https://github.com/syntax-tree/.github/blob/HEAD/contributing.md
-
-[coverage]: https://codecov.io/github/syntax-tree/mdast-util-gfm-autolink-literal
-
-[coverage-badge]: https://img.shields.io/codecov/c/github/syntax-tree/mdast-util-gfm-autolink-literal.svg
-
-[dfn-link]: https://github.com/syntax-tree/mdast#link
-
-[downloads]: https://www.npmjs.com/package/mdast-util-gfm-autolink-literal
-
-[downloads-badge]: https://img.shields.io/npm/dm/mdast-util-gfm-autolink-literal.svg
-
-[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+[badge-size-url]: https://bundlejs.com/?q=mdast-util-gfm-autolink-literal
 
 [esmsh]: https://esm.sh
 
-[extension]: https://github.com/micromark/micromark-extension-gfm-autolink-literal
+[file-license]: license
 
-[from-markdown-extension]: https://github.com/syntax-tree/mdast-util-from-markdown#extension
+[github-gist-esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-[gfm]: https://github.github.com/gfm/
+[github-mdast]: https://github.com/syntax-tree/mdast
+
+[github-mdast-link]: https://github.com/syntax-tree/mdast#link
+
+[github-mdast-util-from-markdown]: https://github.com/syntax-tree/mdast-util-from-markdown
+
+[github-mdast-util-from-markdown-extension]: https://github.com/syntax-tree/mdast-util-from-markdown#extension
+
+[github-mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
+
+[github-mdast-util-to-hast]: https://github.com/syntax-tree/mdast-util-to-hast
+
+[github-mdast-util-to-markdown]: https://github.com/syntax-tree/mdast-util-to-markdown
+
+[github-mdast-util-to-markdown-options]: https://github.com/syntax-tree/mdast-util-to-markdown#options
+
+[github-micromark]: https://github.com/micromark/micromark
+
+[github-micromark-extension]: https://github.com/micromark/micromark-extension-gfm-autolink-literal
+
+[github-micromark-extension-syntax]: https://github.com/micromark/micromark-extension-gfm-autolink-literal#syntax
+
+[github-remark-gfm]: https://github.com/remarkjs/remark-gfm
 
 [health]: https://github.com/syntax-tree/.github
 
-[license]: license
+[health-coc]: https://github.com/syntax-tree/.github/blob/main/code-of-conduct.md
 
-[mdast]: https://github.com/syntax-tree/mdast
+[health-contributing]: https://github.com/syntax-tree/.github/blob/main/contributing.md
 
-[mdast-util-from-markdown]: https://github.com/syntax-tree/mdast-util-from-markdown
+[health-support]: https://github.com/syntax-tree/.github/blob/main/support.md
 
-[mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
+[npmjs-install]: https://docs.npmjs.com/cli/install
 
-[mdast-util-to-hast]: https://github.com/syntax-tree/mdast-util-to-hast
-
-[mdast-util-to-markdown]: https://github.com/syntax-tree/mdast-util-to-markdown
-
-[micromark]: https://github.com/micromark/micromark
-
-[npm]: https://docs.npmjs.com/cli/install
-
-[remark-gfm]: https://github.com/remarkjs/remark-gfm
-
-[size]: https://bundlejs.com/?q=mdast-util-gfm-autolink-literal
-
-[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size\&query=$.size.compressedSize\&url=https://deno.bundlejs.com/?q=mdast-util-gfm-autolink-literal
-
-[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
-
-[support]: https://github.com/syntax-tree/.github/blob/HEAD/support.md
-
-[syntax]: https://github.com/micromark/micromark-extension-gfm-autolink-literal#syntax
-
-[to-markdown-extension]: https://github.com/syntax-tree/mdast-util-to-markdown#options
+[spec-gfm]: https://github.github.com/gfm/
 
 [typescript]: https://www.typescriptlang.org
+
+[wooorm]: https://wooorm.com
