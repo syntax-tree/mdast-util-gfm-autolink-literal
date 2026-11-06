@@ -81,12 +81,6 @@ In Node.js (version 16+), install with [npm][npmjs-install]:
 npm install mdast-util-gfm-autolink-literal
 ```
 
-In Deno with [`esm.sh`][esmsh]:
-
-```js
-import {gfmAutolinkLiteralFromMarkdown, gfmAutolinkLiteralToMarkdown} from 'https://esm.sh/mdast-util-gfm-autolink-literal@2'
-```
-
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
