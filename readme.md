@@ -321,7 +321,7 @@ abide by its terms.
 
 [size]: https://bundlejs.com/?q=mdast-util-gfm-autolink-literal
 
-[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size&query=$.size.compressedSize&url=https://deno.bundlejs.com/?q=mdast-util-gfm-autolink-literal
+[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size\&query=$.size.compressedSize\&url=https://deno.bundlejs.com/?q=mdast-util-gfm-autolink-literal
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
