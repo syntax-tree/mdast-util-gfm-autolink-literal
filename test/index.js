@@ -289,6 +289,24 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
   )
 
   await t.test(
+    'should escape colons if they appear in what looks like an uppercase http protocol',
+    async function () {
+      assert.equal(
+        toMarkdown(
+          {
+            type: 'paragraph',
+            children: [
+              {type: 'text', value: 'HTTPS://example.com HTTP://example.com'}
+            ]
+          },
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
+        ),
+        'HTTPS\\://example.com HTTP\\://example.com\n'
+      )
+    }
+  )
+
+  await t.test(
     'should not escape colons if they appear in what can’t be a http protocol',
     async function () {
       assert.equal(
