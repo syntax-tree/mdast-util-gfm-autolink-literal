@@ -262,6 +262,52 @@ test('gfmAutolinkLiteralToMarkdown()', async function (t) {
     }
   )
 
+  await t.test('should escape dots after uppercase `www`', async function () {
+    assert.equal(
+      toMarkdown(
+        {type: 'paragraph', children: [{type: 'text', value: 'WWW.b'}]},
+        {extensions: [gfmAutolinkLiteralToMarkdown()]}
+      ),
+      'WWW\\.b\n'
+    )
+  })
+
+  await t.test(
+    'should escape dots after `www` before escapes',
+    async function () {
+      assert.equal(
+        toMarkdown(
+          {type: 'paragraph', children: [{type: 'text', value: 'www.*'}]},
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
+        ),
+        'www\\.\\*\n'
+      )
+    }
+  )
+
+  await t.test(
+    'should escape dots after `www` before whitespace',
+    async function () {
+      assert.equal(
+        toMarkdown(
+          {type: 'paragraph', children: [{type: 'text', value: 'www. b'}]},
+          {extensions: [gfmAutolinkLiteralToMarkdown()]}
+        ),
+        'www\\. b\n'
+      )
+    }
+  )
+
+  await t.test('should not escape dots after fewer `w`s', async function () {
+    assert.equal(
+      toMarkdown(
+        {type: 'paragraph', children: [{type: 'text', value: 'ww.b'}]},
+        {extensions: [gfmAutolinkLiteralToMarkdown()]}
+      ),
+      'ww.b\n'
+    )
+  })
+
   await t.test(
     'should not escape dots if they appear in what can’t be a domain',
     async function () {
